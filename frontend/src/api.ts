@@ -40,6 +40,29 @@ export async function startDiagnosis(
   return res.json();
 }
 
+export async function diagnoseDataset(csvText: string, filename: string): Promise<DiagnosisResult> {
+  const query = new URLSearchParams({ filename });
+  const res = await fetch(`${API_BASE}/diagnosis/upload?${query.toString()}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/csv; charset=utf-8' },
+    body: csvText,
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: res.statusText }));
+    throw new Error(err.detail || 'Could not analyze this dataset');
+  }
+  return res.json();
+}
+
+export async function fetchSampleDataset(condition: string): Promise<string> {
+  const res = await fetch(`${API_BASE}/datasets/sample/${encodeURIComponent(condition)}`);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: res.statusText }));
+    throw new Error(err.detail || 'Could not load this sample dataset');
+  }
+  return res.text();
+}
+
 export async function fetchDiagnosisStatus(diagnosisId: string): Promise<DiagnosisStatusResponse> {
   const res = await fetch(`${API_BASE}/diagnosis/${encodeURIComponent(diagnosisId)}`);
   if (!res.ok) {

@@ -38,3 +38,6 @@ Desktop.ini
 
 # Temporary release and export artifacts
 dist/tmp/
+
+# Locally generated diagnostic history (sample reports already tracked remain available)
+data/diagnosis_history/*.json

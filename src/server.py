@@ -13,7 +13,10 @@ Security & Integrity:
 """
 
 from datetime import datetime, timezone
+import csv
+import io
 import json
+import math
 import os
 import re
 import threading
@@ -21,7 +24,8 @@ import time
 from typing import Any, Dict, List, Optional
 import uuid
 
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, Request, status
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
@@ -67,6 +71,19 @@ app.add_middleware(
 )
 
 PHYSICAL_RAW_DIR = "data/physical_raw"
+UPLOAD_MAX_BYTES = 15 * 1024 * 1024
+RAW_CSV_REQUIRED_COLUMNS = {
+    "timestamp", "cpu_overall", "cpu_cores_json", "vmem_percent",
+    "vmem_available", "vmem_total", "swap_percent", "swap_used", "swap_total",
+    "disk_read_bytes", "disk_write_bytes", "disk_read_count", "disk_write_count",
+    "disk_read_time", "disk_write_time", "process_count", "top_proc_cpu", "top_proc_rss",
+}
+SAMPLE_DATASETS = {
+    "normal": "physical_machine_A_normal_none_5743354b_raw.csv",
+    "cpu_pressure": "physical_machine_A_cpu_pressure_high_b4e1568b_raw.csv",
+    "memory_pressure": "physical_machine_A_memory_pressure_high_b8adbb32_raw.csv",
+    "disk_io_pressure": "physical_machine_A_disk_io_pressure_high_63628538_raw.csv",
+}
 
 # Lazy-loaded pipeline singleton
 _pipeline: Optional[CurioDiagnosisPipeline] = None
@@ -173,6 +190,131 @@ def get_status() -> Dict[str, Any]:
             "error": str(e),
             "local_only": True,
         }
+
+
+def _parse_uploaded_telemetry_csv(content: bytes) -> List[Dict[str, Any]]:
+    """Parse and validate a CURIO raw telemetry CSV without persisting the upload."""
+    if len(content) > UPLOAD_MAX_BYTES:
+        raise HTTPException(status_code=413, detail="CSV is too large. Maximum upload size is 15 MB.")
+    try:
+        text = content.decode("utf-8-sig")
+        reader = csv.DictReader(io.StringIO(text))
+        columns = set(reader.fieldnames or [])
+        missing = sorted(RAW_CSV_REQUIRED_COLUMNS - columns)
+        if missing:
+            raise HTTPException(
+                status_code=422,
+                detail=("This file does not look like a CURIO raw telemetry CSV. Missing columns: "
+                        + ", ".join(missing) + ". Use the sample files or export a 30-second raw capture."),
+            )
+        samples: List[Dict[str, Any]] = []
+        for row_number, row in enumerate(reader, start=2):
+            if len(samples) >= 5000:
+                raise HTTPException(status_code=422, detail="CSV has too many rows; one diagnosis accepts at most 5,000.")
+            try:
+                cores = json.loads(row["cpu_cores_json"])
+                if not isinstance(cores, list) or not cores:
+                    raise ValueError("cpu_cores_json must be a non-empty JSON array")
+                sample: Dict[str, Any] = {
+                    "timestamp": float(row["timestamp"]),
+                    "cpu_overall": float(row["cpu_overall"]),
+                    "cpu_cores": [float(value) for value in cores],
+                    "vmem_percent": float(row["vmem_percent"]),
+                    "vmem_available": int(row["vmem_available"]),
+                    "vmem_total": int(row["vmem_total"]),
+                    "swap_percent": float(row["swap_percent"]),
+                    "swap_used": int(row["swap_used"]),
+                    "swap_total": int(row["swap_total"]),
+                    "disk_read_bytes": int(row["disk_read_bytes"]),
+                    "disk_write_bytes": int(row["disk_write_bytes"]),
+                    "disk_read_count": int(row["disk_read_count"]),
+                    "disk_write_count": int(row["disk_write_count"]),
+                    "disk_read_time": int(row["disk_read_time"]),
+                    "disk_write_time": int(row["disk_write_time"]),
+                    "process_count": int(row["process_count"]),
+                    "top_proc_cpu": float(row["top_proc_cpu"]),
+                    "top_proc_rss": float(row["top_proc_rss"]),
+                }
+                numeric_values = [v for k, v in sample.items() if k != "cpu_cores"] + sample["cpu_cores"]
+                if not all(math.isfinite(value) for value in numeric_values):
+                    raise ValueError("values must be finite numbers")
+                if sample["vmem_total"] <= 0:
+                    raise ValueError("vmem_total must be greater than zero")
+                for field in ("cpu_overall", "vmem_percent", "swap_percent", "top_proc_cpu"):
+                    if not 0 <= sample[field] <= 100:
+                        raise ValueError(f"{field} must be between 0 and 100")
+                if any(not 0 <= value <= 100 for value in sample["cpu_cores"]):
+                    raise ValueError("cpu_cores_json entries must be between 0 and 100")
+                if any(sample[field] < 0 for field in (
+                    "vmem_available", "swap_used", "swap_total", "disk_read_bytes",
+                    "disk_write_bytes", "disk_read_count", "disk_write_count",
+                    "disk_read_time", "disk_write_time", "process_count", "top_proc_rss",
+                )):
+                    raise ValueError("memory, disk, process, and byte counters cannot be negative")
+                samples.append(sample)
+            except (ValueError, TypeError, KeyError, json.JSONDecodeError) as exc:
+                raise HTTPException(status_code=422, detail=f"Invalid value on CSV row {row_number}: {exc}") from exc
+    except UnicodeDecodeError as exc:
+        raise HTTPException(status_code=422, detail="CSV must be UTF-8 encoded.") from exc
+    except csv.Error as exc:
+        raise HTTPException(status_code=422, detail=f"CSV could not be parsed: {exc}") from exc
+    if len(samples) != EXPECTED_RAW_SAMPLES:
+        raise HTTPException(
+            status_code=422,
+            detail=f"This diagnosis needs exactly 61 samples over 30 seconds at 2 Hz; this file has {len(samples)} rows.",
+        )
+    timestamps = [sample["timestamp"] for sample in samples]
+    intervals = [timestamps[i + 1] - timestamps[i] for i in range(len(timestamps) - 1)]
+    if any(interval <= 0 for interval in intervals):
+        raise HTTPException(status_code=422, detail="Timestamps must increase from oldest to newest.")
+    if abs((timestamps[-1] - timestamps[0]) - 30.0) > 0.3 or any(abs(dt - 0.5) > 0.15 for dt in intervals):
+        raise HTTPException(status_code=422, detail="Samples must span 30 seconds at approximately 0.5-second intervals.")
+    return samples
+
+
+@app.get("/api/datasets/samples")
+def list_sample_datasets() -> List[Dict[str, str]]:
+    """List small, built-in telemetry examples that use the exact upload pipeline."""
+    return [
+        {"condition": condition, "label": condition.replace("_", " ").title()}
+        for condition in SAMPLE_DATASETS
+        if os.path.isfile(os.path.join(PHYSICAL_RAW_DIR, SAMPLE_DATASETS[condition]))
+    ]
+
+
+@app.get("/api/datasets/sample/{condition}")
+def download_sample_dataset(condition: str) -> FileResponse:
+    filename = SAMPLE_DATASETS.get(condition)
+    if not filename:
+        raise HTTPException(status_code=404, detail="Sample dataset not found.")
+    path = os.path.join(PHYSICAL_RAW_DIR, filename)
+    if not os.path.isfile(path):
+        raise HTTPException(status_code=404, detail="Sample dataset is not available in this installation.")
+    return FileResponse(path, media_type="text/csv", filename=f"curio-{condition}-sample.csv")
+
+
+@app.post("/api/diagnosis/upload")
+async def diagnose_uploaded_dataset(request: Request, filename: str = "uploaded-telemetry.csv") -> Dict[str, Any]:
+    """Run the complete CURIO diagnosis pipeline against an uploaded raw telemetry CSV."""
+    samples = _parse_uploaded_telemetry_csv(await request.body())
+    safe_filename = os.path.basename(filename)[:120] or "uploaded-telemetry.csv"
+    session_id = f"upload_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:6]}"
+    try:
+        result = get_pipeline().run_diagnosis(
+            raw_samples=samples,
+            save_history=True,
+            session_id=session_id,
+            save_raw=False,
+        )
+    except (ValueError, KeyError) as exc:
+        raise HTTPException(status_code=422, detail=f"CURIO could not analyze this capture: {exc}") from exc
+    result["input_source"] = "uploaded_csv"
+    result["input_filename"] = safe_filename
+    # Keep the local history record in sync with the source annotation.
+    history_path = os.path.join(get_pipeline().history_dir, f"{session_id}_diagnosis.json")
+    with open(history_path, "w", encoding="utf-8") as history_file:
+        json.dump(result, history_file, indent=2)
+    return result
 
 
 def _run_diagnosis_worker(

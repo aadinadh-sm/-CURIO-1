@@ -69,6 +69,9 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
       <div className={`result-header-card ${sessionAbnormal ? 'abnormal' : 'normal'}`}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem' }}>
           <div style={{ flex: 1, minWidth: '300px' }}>
+            {result.input_source === 'uploaded_csv' && (
+              <div className="result-source-label"><Activity size={12} /> CSV analysis · {result.input_filename || 'Uploaded capture'}</div>
+            )}
             <div className={`status-pill ${sessionAbnormal ? 'abnormal' : 'normal'}`}>
               {sessionAbnormal ? <AlertTriangle size={12} /> : <CheckCircle2 size={12} />}
               <span>{sessionAbnormal ? 'ABNORMAL OPERATING STATE' : 'NORMAL OPERATING STATE'}</span>

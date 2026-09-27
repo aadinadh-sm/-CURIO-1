@@ -1,4 +1,6 @@
 import React from 'react';
+import { fetchHistory, fetchSampleDataset, fetchSystemStatus } from '../api';
+import type { HistorySummaryItem, SystemStatus } from '../types';
 import {
   Play,
   RotateCcw,
@@ -13,6 +15,8 @@ import {
   CheckCircle2,
   ArrowRight,
   ShieldCheck,
+  Upload,
+  FileSpreadsheet,
 } from 'lucide-react';
 
 interface HomeScreenProps {
@@ -21,6 +25,7 @@ interface HomeScreenProps {
   onOpenReplay: () => void;
   onToggleTechnical: () => void;
   technicalMode: boolean;
+  onDiagnoseDataset?: (csv: string, filename: string) => void;
 }
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({
@@ -29,7 +34,34 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   onOpenReplay,
   onToggleTechnical,
   technicalMode,
+  onDiagnoseDataset,
 }) => {
+  const [recentHistory, setRecentHistory] = React.useState<HistorySummaryItem[]>([]);
+  const [systemStatus, setSystemStatus] = React.useState<SystemStatus | null>(null);
+  const [datasetBusy, setDatasetBusy] = React.useState(false);
+  const [datasetName, setDatasetName] = React.useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const handleFile = async (file?: File) => {
+    if (!file) return;
+    if (!file.name.toLowerCase().endsWith('.csv')) return;
+    setDatasetName(file.name);
+    setDatasetBusy(true);
+    try { await onDiagnoseDataset?.(await file.text(), file.name); } finally { setDatasetBusy(false); }
+  };
+  const handleSample = async (condition: string) => {
+    setDatasetBusy(true);
+    setDatasetName(`${condition.replace(/_/g, ' ')} sample`);
+    try {
+      const csv = await fetchSampleDataset(condition);
+      await onDiagnoseDataset?.(csv, `curio-${condition}-sample.csv`);
+    } finally { setDatasetBusy(false); }
+  };
+  React.useEffect(() => {
+    void Promise.allSettled([fetchHistory(), fetchSystemStatus()]).then(([historyResult, statusResult]) => {
+      if (historyResult.status === 'fulfilled') setRecentHistory(historyResult.value.slice(0, 3));
+      if (statusResult.status === 'fulfilled') setSystemStatus(statusResult.value);
+    });
+  }, []);
   return (
     <div className="overview-dashboard">
       {/* Overview Header */}
@@ -57,6 +89,47 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </button>
         </div>
       </div>
+
+      <section className="dataset-import-panel" aria-labelledby="dataset-heading">
+        <div className="dataset-import-copy">
+          <div className="dataset-icon"><FileSpreadsheet size={19} /></div>
+          <div>
+            <div className="dataset-eyebrow">ANALYZE A CAPTURE</div>
+            <h2 id="dataset-heading">Bring your own telemetry</h2>
+            <p>Upload a CURIO raw capture. It runs through the same diagnosis, evidence, and timeline analysis as a live check.</p>
+          </div>
+        </div>
+        <div className="dataset-import-action">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".csv,text/csv"
+            className="visually-hidden"
+            onChange={(event) => { void handleFile(event.target.files?.[0]); event.currentTarget.value = ''; }}
+          />
+          <button className="btn-primary dataset-upload-button" disabled={datasetBusy} onClick={() => fileInputRef.current?.click()}>
+            <Upload size={15} />
+            <span>{datasetBusy ? 'Analyzing capture…' : 'Choose a CSV'}</span>
+          </button>
+          <span className="dataset-file-note">{datasetName || 'CSV · 61 rows · 30 seconds'}</span>
+        </div>
+        <div className="dataset-import-footnote">
+          <span>Local analysis · File is not retained</span>
+          <span>Or diagnose a sample capture:</span>
+        </div>
+        <div className="dataset-samples">
+          {[
+            ['normal', 'Normal'],
+            ['cpu_pressure', 'CPU pressure'],
+            ['memory_pressure', 'Memory pressure'],
+            ['disk_io_pressure', 'Disk I/O'],
+          ].map(([condition, label]) => (
+            <button key={condition} className="sample-chip" disabled={datasetBusy} onClick={() => void handleSample(condition)}>
+              {label}
+            </button>
+          ))}
+        </div>
+      </section>
 
       {/* System Status Banner */}
       <div className="overview-status-banner">
@@ -116,29 +189,17 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </div>
 
           <div className="recent-diag-list">
-            <div className="recent-diag-item" onClick={onOpenHistory}>
-              <div className="recent-diag-condition">
-                <span className="status-badge normal">NORMAL</span>
-                <span>Normal Operating State</span>
-              </div>
-              <span className="recent-diag-meta">Recent • 30.0s</span>
-            </div>
-
-            <div className="recent-diag-item" onClick={onOpenHistory}>
-              <div className="recent-diag-condition">
-                <span className="status-badge abnormal">CPU</span>
-                <span>CPU Pressure Incident</span>
-              </div>
-              <span className="recent-diag-meta">Verified • 96% conf</span>
-            </div>
-
-            <div className="recent-diag-item" onClick={onOpenHistory}>
-              <div className="recent-diag-condition">
-                <span className="status-badge abnormal">DISK</span>
-                <span>Disk I/O Contention</span>
-              </div>
-              <span className="recent-diag-meta">Prior • Sustained</span>
-            </div>
+            {recentHistory.length ? recentHistory.map((record) => (
+              <button className="recent-diag-item" key={record.session_id} onClick={onOpenHistory}>
+                <div className="recent-diag-condition">
+                  <span className={`status-badge ${record.session_abnormal ? 'abnormal' : 'normal'}`}>{record.condition.replace(/_pressure/g, '').replace(/_/g, ' ').toUpperCase()}</span>
+                  <span>{record.condition.replace(/_/g, ' ')}</span>
+                </div>
+                <span className="recent-diag-meta">{new Date(record.timestamp).toLocaleString()} · {Math.round(record.confidence * 100)}%</span>
+              </button>
+            )) : (
+              <div className="history-empty-note">Your completed checks will appear here. Start a live check or analyze a CSV capture.</div>
+            )}
           </div>
         </div>
 
@@ -150,52 +211,52 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               <span>At a glance</span>
             </div>
             <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-              2 Hz Polling Ready
+              {systemStatus?.ready ? 'ENGINE READY' : 'CONNECTING'}
             </span>
           </div>
 
           <div className="snapshot-metrics-grid">
             <div className="snapshot-metric-card">
               <div className="snapshot-metric-label">
-                <span>CPU Load</span>
+                <span>Model</span>
                 <Cpu size={12} />
               </div>
-              <div className="snapshot-metric-val">18%</div>
+              <div className="snapshot-metric-val">{systemStatus?.model_loaded ? 'Ready' : '—'}</div>
             </div>
 
             <div className="snapshot-metric-card">
               <div className="snapshot-metric-label">
-                <span>RAM Usage</span>
+                <span>Checks run</span>
                 <Layers size={12} />
               </div>
-              <div className="snapshot-metric-val">62%</div>
+              <div className="snapshot-metric-val">{systemStatus?.history_count ?? '—'}</div>
             </div>
 
             <div className="snapshot-metric-card">
               <div className="snapshot-metric-label">
-                <span>Disk State</span>
+                <span>Signals</span>
                 <HardDrive size={12} />
               </div>
-              <div className="snapshot-metric-val" style={{ fontSize: '1rem', color: '#34d399' }}>
-                idle
+              <div className="snapshot-metric-val" style={{ fontSize: '1rem' }}>
+                {systemStatus?.features_count ?? '—'} features
               </div>
             </div>
 
             <div className="snapshot-metric-card">
               <div className="snapshot-metric-label">
-                <span>Processes</span>
+                <span>Alert gate</span>
                 <Terminal size={12} />
               </div>
-              <div className="snapshot-metric-val">184</div>
+              <div className="snapshot-metric-val">{systemStatus ? `${Math.round(systemStatus.abnormality_threshold * 100)}%` : '—'}</div>
             </div>
           </div>
 
           <div className="snapshot-subsystem-status">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
               <CheckCircle2 size={12} style={{ color: '#10b981' }} />
-              <span>Subsystems Operational</span>
+              <span>{systemStatus?.ready ? 'Diagnostic engine online' : 'Waiting for local engine'}</span>
             </div>
-            <span>12 Frozen Features</span>
+            <span>{systemStatus?.classes?.length ?? 4} operating states</span>
           </div>
         </div>
       </div>
@@ -221,7 +282,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             <div className="core-card-icon">
               <Cpu size={14} />
             </div>
-            <div className="core-card-title">A baseline built for your machine</div>
+            <div className="core-card-title">Calibrated condition model</div>
             <div className="core-card-desc">
               Evaluates 11 rolling feature windows against a calibrated Random Forest classifier with out-of-fold abnormality gating.
             </div>

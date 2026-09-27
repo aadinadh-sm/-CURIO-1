@@ -95,6 +95,11 @@ The Discovery Engine answers: *"What was the temporal progression of subsystem d
 7. Discovery Engine analyzes onset order and calculates Kendall $\tau_b$ (~2 ms).
 8. Diagnostic report is persisted locally to `data/diagnosis_history/` and rendered in the web UI.
 
+## 8a. Diagnose an Existing CSV Capture
+From the home screen, choose a CSV or select one of the built-in Normal, CPU pressure, Memory pressure, or Disk I/O examples. CURIO validates the file, then sends its 61 raw samples through the same feature extraction, calibrated inference, evidence attribution, and temporal discovery stages used for live capture. The complete report opens in the normal results view and is added to local diagnosis history.
+
+Uploads must be a UTF-8 CURIO raw telemetry CSV with exactly 61 rows spanning 30 seconds at approximately 0.5-second intervals. Required fields are `timestamp`, `cpu_overall`, `cpu_cores_json`, `vmem_percent`, `vmem_available`, `vmem_total`, `swap_percent`, `swap_used`, `swap_total`, `disk_read_bytes`, `disk_write_bytes`, `disk_read_count`, `disk_write_count`, `disk_read_time`, `disk_write_time`, `process_count`, `top_proc_cpu`, and `top_proc_rss`. CURIO analyzes the upload in memory and does not save the raw CSV; only the resulting diagnosis report is stored locally. Processed feature tables are not accepted as raw captures because they cannot provide the original per-sample timing needed for evidence and trajectory discovery.
+
 ---
 
 ## 9. Installation & Prerequisites

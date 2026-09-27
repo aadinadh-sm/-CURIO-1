@@ -113,6 +113,8 @@ export interface DiagnosisResult {
     feature_names: string[];
     pipeline_version: string;
   };
+  input_source?: 'uploaded_csv';
+  input_filename?: string;
 }
 
 export interface DiagnosisStatusResponse {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { startDiagnosis } from './api';
+import { diagnoseDataset, startDiagnosis } from './api';
 import { DiagnosisScreen } from './components/DiagnosisScreen';
 import { HistoryScreen } from './components/HistoryScreen';
 import { HomeScreen } from './components/HomeScreen';
@@ -67,6 +67,17 @@ export const App: React.FC = () => {
       setCurrentView('diagnosing');
     } catch (err: any) {
       setErrorBanner(`Failed to start replay diagnosis: ${err.message}`);
+    }
+  };
+
+  const handleDatasetDiagnosis = async (csvText: string, filename: string) => {
+    setErrorBanner(null);
+    try {
+      const result = await diagnoseDataset(csvText, filename);
+      setActiveResult(result);
+      setCurrentView('result');
+    } catch (err: any) {
+      setErrorBanner(`Dataset diagnosis failed: ${err.message}`);
     }
   };
 
@@ -146,6 +157,7 @@ export const App: React.FC = () => {
               onStartLiveDiagnosis={handleStartLive}
               onOpenHistory={() => setCurrentView('history')}
               onOpenReplay={() => setReplayModalOpen(true)}
+              onDiagnoseDataset={handleDatasetDiagnosis}
               onToggleTechnical={() => setTechnicalMode(!technicalMode)}
               technicalMode={technicalMode}
             />
