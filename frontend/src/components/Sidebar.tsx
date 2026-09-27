@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Play, Clock, Cpu, Layers, HardDrive, Terminal, Code2, RotateCcw } from 'lucide-react';
+import { Activity, LayoutDashboard, Play, Clock, Cpu, Layers, HardDrive, Terminal, Code2, RotateCcw } from 'lucide-react';
 
 interface SidebarProps {
   currentView: 'home' | 'diagnosing' | 'result' | 'history';
@@ -23,11 +23,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div>
         {/* Brand Header */}
         <div className="sidebar-header" onClick={() => onNavigate('home')} style={{ cursor: 'pointer' }}>
-          <div className="sidebar-brand-mark">C</div>
-          <div>
+          <div className="sidebar-brand-mark" aria-hidden="true">
+            <Activity size={21} strokeWidth={2.1} />
+            <span className="sidebar-brand-signal" />
+          </div>
+          <div className="sidebar-brand-copy">
             <div className="sidebar-brand-title">CURIO</div>
-            <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', lineHeight: 1 }}>
-              DIAGNOSTIC CORE
+            <div className="sidebar-brand-subtitle">
+              SYSTEM INTELLIGENCE
             </div>
           </div>
         </div>
