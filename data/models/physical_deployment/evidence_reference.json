@@ -1,0 +1,193 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-09-27T18:34:06.347827+00:00",
+  "training_machines": [
+    "physical_machine_A"
+  ],
+  "normal_sessions_count": 4,
+  "total_training_samples": 242,
+  "feature_stats": {
+    "cpu_mean": {
+      "mean": 18.62431818181818,
+      "std": 7.151783774151724,
+      "median": 17.814999999999998,
+      "iqr": 6.6675
+    },
+    "cpu_max": {
+      "mean": 31.79545454545454,
+      "std": 11.778714632473047,
+      "median": 28.1,
+      "iqr": 14.425000000000004
+    },
+    "cpu_std": {
+      "mean": 7.432858339556362,
+      "std": 3.245000644608663,
+      "median": 7.16847558486102,
+      "iqr": 4.847977967109595
+    },
+    "cpu_core_imbalance": {
+      "mean": 53.5840909090909,
+      "std": 12.650513422466634,
+      "median": 51.88,
+      "iqr": 18.415000000000006
+    },
+    "ram_used_pct": {
+      "mean": 78.15363636363635,
+      "std": 2.231454933559583,
+      "median": 79.36999999999999,
+      "iqr": 3.467500000000001
+    },
+    "ram_available_ratio": {
+      "mean": 0.21848294112267075,
+      "std": 0.022292415767559075,
+      "median": 0.2063771567327236,
+      "iqr": 0.034705667927470485
+    },
+    "swap_used_pct": {
+      "mean": 5.872500000000001,
+      "std": 0.04340855129558516,
+      "median": 5.9,
+      "iqr": 0.06750000000000078
+    },
+    "disk_io_rate_norm": {
+      "mean": 5.839167614516478,
+      "std": 0.6293082317474963,
+      "median": 5.803401243797294,
+      "iqr": 0.9467407155058769
+    },
+    "disk_iops_norm": {
+      "mean": 1.4382137282332614,
+      "std": 0.5163297052958502,
+      "median": 1.3982065203498064,
+      "iqr": 0.6597840818741536
+    },
+    "process_count_delta": {
+      "mean": 0.22727272727272727,
+      "std": 0.9850896869483121,
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "top_proc_cpu_ratio": {
+      "mean": 0.24638752033212039,
+      "std": 0.09131441545140805,
+      "median": 0.23804583402263219,
+      "iqr": 0.11141054635589742
+    },
+    "top_proc_mem_pct": {
+      "mean": 5.908854370026612,
+      "std": 0.5403846151790993,
+      "median": 6.012861259587119,
+      "iqr": 0.0011752983389374805
+    }
+  },
+  "expected_directions": {
+    "normal": {
+      "cpu_mean": 0,
+      "cpu_max": 0,
+      "cpu_std": 0,
+      "cpu_core_imbalance": 0,
+      "ram_used_pct": 0,
+      "ram_available_ratio": 0,
+      "swap_used_pct": 0,
+      "disk_io_rate_norm": 0,
+      "disk_iops_norm": 0,
+      "process_count_delta": 0,
+      "top_proc_cpu_ratio": 0,
+      "top_proc_mem_pct": 0
+    },
+    "cpu_pressure": {
+      "cpu_mean": 1,
+      "cpu_max": 1,
+      "cpu_std": -1,
+      "cpu_core_imbalance": -1,
+      "ram_used_pct": 1,
+      "ram_available_ratio": -1,
+      "swap_used_pct": -1,
+      "disk_io_rate_norm": 0,
+      "disk_iops_norm": 0,
+      "process_count_delta": 0,
+      "top_proc_cpu_ratio": -1,
+      "top_proc_mem_pct": 0
+    },
+    "memory_pressure": {
+      "cpu_mean": 0,
+      "cpu_max": 0,
+      "cpu_std": 0,
+      "cpu_core_imbalance": -1,
+      "ram_used_pct": 1,
+      "ram_available_ratio": -1,
+      "swap_used_pct": -1,
+      "disk_io_rate_norm": 0,
+      "disk_iops_norm": 0,
+      "process_count_delta": 0,
+      "top_proc_cpu_ratio": 0,
+      "top_proc_mem_pct": 1
+    },
+    "disk_io_pressure": {
+      "cpu_mean": 0,
+      "cpu_max": 0,
+      "cpu_std": 0,
+      "cpu_core_imbalance": 0,
+      "ram_used_pct": 1,
+      "ram_available_ratio": -1,
+      "swap_used_pct": -1,
+      "disk_io_rate_norm": 1,
+      "disk_iops_norm": 1,
+      "process_count_delta": 0,
+      "top_proc_cpu_ratio": 0,
+      "top_proc_mem_pct": 0
+    }
+  },
+  "class_means": {
+    "cpu_pressure": {
+      "cpu_mean": 84.34833333333334,
+      "cpu_max": 90.56969696969698,
+      "cpu_std": 4.068136785554402,
+      "cpu_core_imbalance": 35.805151515151515,
+      "ram_used_pct": 83.39606060606062,
+      "ram_available_ratio": 0.16606091297145742,
+      "swap_used_pct": 5.700303030303033,
+      "disk_io_rate_norm": 5.739396000111224,
+      "disk_iops_norm": 1.5046685389966166,
+      "process_count_delta": 0.12121212121212122,
+      "top_proc_cpu_ratio": 0.07417919945647067,
+      "top_proc_mem_pct": 5.762892854747904
+    },
+    "memory_pressure": {
+      "cpu_mean": 16.135757575757573,
+      "cpu_max": 26.074242424242424,
+      "cpu_std": 6.111443868352359,
+      "cpu_core_imbalance": 47.16136363636364,
+      "ram_used_pct": 79.09045454545455,
+      "ram_available_ratio": 0.20910364249410937,
+      "swap_used_pct": 5.700000000000002,
+      "disk_io_rate_norm": 5.77787934660551,
+      "disk_iops_norm": 1.4291704997133254,
+      "process_count_delta": -0.09090909090909091,
+      "top_proc_cpu_ratio": 0.2601995134185925,
+      "top_proc_mem_pct": 7.651582089641216
+    },
+    "disk_io_pressure": {
+      "cpu_mean": 21.367121212121212,
+      "cpu_max": 32.24242424242424,
+      "cpu_std": 6.0204652650589505,
+      "cpu_core_imbalance": 55.013939393939395,
+      "ram_used_pct": 80.09939393939393,
+      "ram_available_ratio": 0.19900849165560824,
+      "swap_used_pct": 5.766666666666667,
+      "disk_io_rate_norm": 8.412738253647094,
+      "disk_iops_norm": 2.832981851674791,
+      "process_count_delta": -0.07575757575757576,
+      "top_proc_cpu_ratio": 0.22172645631502153,
+      "top_proc_mem_pct": 5.741478973804958
+    }
+  },
+  "epsilon": 0.0001,
+  "score_cap": 10.0,
+  "thresholds": {
+    "strong_evidence": 2.0,
+    "moderate_evidence": 1.0,
+    "weak_evidence": -1.0,
+    "contradictory": -1.0
+  }
+}

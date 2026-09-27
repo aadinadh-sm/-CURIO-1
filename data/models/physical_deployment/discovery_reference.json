@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-09-27T18:34:06.416982+00:00",
+  "training_machines": [
+    "physical_machine_A"
+  ],
+  "recurrence_threshold": 0.6,
+  "onset_threshold": 1.8,
+  "consecutive_windows": 2,
+  "canonical_signatures": {
+    "cpu_pressure": {
+      "total_sessions": 6,
+      "eligible_features": [
+        "cpu_mean",
+        "cpu_max",
+        "ram_used_pct",
+        "ram_available_ratio",
+        "swap_used_pct",
+        "top_proc_cpu_ratio"
+      ],
+      "recurrence": {
+        "cpu_mean": 1.0,
+        "cpu_max": 1.0,
+        "cpu_std": 0.333,
+        "cpu_core_imbalance": 0.333,
+        "ram_used_pct": 1.0,
+        "ram_available_ratio": 1.0,
+        "swap_used_pct": 1.0,
+        "top_proc_cpu_ratio": 0.833
+      },
+      "median_onsets_s": {
+        "cpu_mean": 0.0,
+        "cpu_max": 0.0,
+        "ram_used_pct": 0.0,
+        "ram_available_ratio": 0.0,
+        "swap_used_pct": 0.0,
+        "top_proc_cpu_ratio": 0.0
+      },
+      "canonical_sequence": [
+        "cpu_max",
+        "cpu_mean",
+        "ram_available_ratio",
+        "ram_used_pct",
+        "swap_used_pct",
+        "top_proc_cpu_ratio"
+      ]
+    },
+    "memory_pressure": {
+      "total_sessions": 6,
+      "eligible_features": [
+        "swap_used_pct"
+      ],
+      "recurrence": {
+        "cpu_core_imbalance": 0.167,
+        "ram_used_pct": 0.333,
+        "ram_available_ratio": 0.333,
+        "swap_used_pct": 1.0,
+        "top_proc_mem_pct": 0.333
+      },
+      "median_onsets_s": {
+        "swap_used_pct": 0.0
+      },
+      "canonical_sequence": [
+        "swap_used_pct"
+      ]
+    },
+    "disk_io_pressure": {
+      "total_sessions": 6,
+      "eligible_features": [
+        "disk_io_rate_norm",
+        "disk_iops_norm"
+      ],
+      "recurrence": {
+        "ram_used_pct": 0.0,
+        "ram_available_ratio": 0.0,
+        "swap_used_pct": 0.333,
+        "disk_io_rate_norm": 1.0,
+        "disk_iops_norm": 1.0
+      },
+      "median_onsets_s": {
+        "disk_io_rate_norm": 0.0,
+        "disk_iops_norm": 0.0
+      },
+      "canonical_sequence": [
+        "disk_io_rate_norm",
+        "disk_iops_norm"
+      ]
+    }
+  }
+}

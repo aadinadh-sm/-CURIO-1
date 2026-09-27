@@ -1,0 +1,502 @@
+{
+  "session_id": "acc_memory_pressure",
+  "capture_started_at": "2026-09-27T19:13:34.131726+00:00",
+  "capture_duration_seconds": 30.0,
+  "raw_samples_count": 61,
+  "feature_windows_count": 11,
+  "diagnosis": {
+    "condition": "memory_pressure",
+    "confidence": 0.8994,
+    "class_probabilities": {
+      "cpu_pressure": 0.0179,
+      "disk_io_pressure": 0.0174,
+      "memory_pressure": 0.8994,
+      "normal": 0.0653
+    },
+    "session_probability_normal": 0.0653,
+    "session_probability_cpu": 0.0179,
+    "session_probability_memory": 0.8994,
+    "session_probability_disk": 0.0174,
+    "per_window_predictions": [
+      {
+        "window_idx": 0,
+        "window_start_seconds": 0.0,
+        "window_end_seconds": 5.0,
+        "predicted_condition": "memory_pressure",
+        "confidence": 0.951095387597989,
+        "probability_normal": 0.016032474024569383,
+        "abnormality_score": 0.9839675259754306,
+        "class_probabilities": {
+          "cpu_pressure": 0.016828705158659325,
+          "disk_io_pressure": 0.016043433218782304,
+          "memory_pressure": 0.951095387597989,
+          "normal": 0.016032474024569383
+        }
+      },
+      {
+        "window_idx": 1,
+        "window_start_seconds": 2.5,
+        "window_end_seconds": 7.5,
+        "predicted_condition": "memory_pressure",
+        "confidence": 0.9528296305157283,
+        "probability_normal": 0.01643767671173048,
+        "abnormality_score": 0.9835623232882695,
+        "class_probabilities": {
+          "cpu_pressure": 0.015876307809491726,
+          "disk_io_pressure": 0.014856384963049417,
+          "memory_pressure": 0.9528296305157283,
+          "normal": 0.01643767671173048
+        }
+      },
+      {
+        "window_idx": 2,
+        "window_start_seconds": 5.0,
+        "window_end_seconds": 10.0,
+        "predicted_condition": "memory_pressure",
+        "confidence": 0.9350109426891863,
+        "probability_normal": 0.03330009993980438,
+        "abnormality_score": 0.9666999000601956,
+        "class_probabilities": {
+          "cpu_pressure": 0.016584353807333967,
+          "disk_io_pressure": 0.015104603563675252,
+          "memory_pressure": 0.9350109426891863,
+          "normal": 0.03330009993980438
+        }
+      },
+      {
+        "window_idx": 3,
+        "window_start_seconds": 7.5,
+        "window_end_seconds": 12.5,
+        "predicted_condition": "memory_pressure",
+        "confidence": 0.9227502409552205,
+        "probability_normal": 0.044838077663724385,
+        "abnormality_score": 0.9551619223362756,
+        "class_probabilities": {
+          "cpu_pressure": 0.017188045402834286,
+          "disk_io_pressure": 0.015223635978220735,
+          "memory_pressure": 0.9227502409552205,
+          "normal": 0.044838077663724385
+        }
+      },
+      {
+        "window_idx": 4,
+        "window_start_seconds": 10.0,
+        "window_end_seconds": 15.0,
+        "predicted_condition": "memory_pressure",
+        "confidence": 0.8511435084371252,
+        "probability_normal": 0.11470450837655201,
+        "abnormality_score": 0.885295491623448,
+        "class_probabilities": {
+          "cpu_pressure": 0.016658787992646765,
+          "disk_io_pressure": 0.017493195193675995,
+          "memory_pressure": 0.8511435084371252,
+          "normal": 0.11470450837655201
+        }
+      },
+      {
+        "window_idx": 5,
+        "window_start_seconds": 12.5,
+        "window_end_seconds": 17.5,
+        "predicted_condition": "memory_pressure",
+        "confidence": 0.8390796194697087,
+        "probability_normal": 0.11908830660635915,
+        "abnormality_score": 0.8809116933936408,
+        "class_probabilities": {
+          "cpu_pressure": 0.020435862008510938,
+          "disk_io_pressure": 0.02139621191542125,
+          "memory_pressure": 0.8390796194697087,
+          "normal": 0.11908830660635915
+        }
+      },
+      {
+        "window_idx": 6,
+        "window_start_seconds": 15.0,
+        "window_end_seconds": 20.0,
+        "predicted_condition": "memory_pressure",
+        "confidence": 0.8182530887092918,
+        "probability_normal": 0.1325129304084469,
+        "abnormality_score": 0.8674870695915531,
+        "class_probabilities": {
+          "cpu_pressure": 0.026259061711362455,
+          "disk_io_pressure": 0.0229749191708989,
+          "memory_pressure": 0.8182530887092918,
+          "normal": 0.1325129304084469
+        }
+      },
+      {
+        "window_idx": 7,
+        "window_start_seconds": 17.5,
+        "window_end_seconds": 22.5,
+        "predicted_condition": "memory_pressure",
+        "confidence": 0.8562331376163718,
+        "probability_normal": 0.1078736639281211,
+        "abnormality_score": 0.8921263360718789,
+        "class_probabilities": {
+          "cpu_pressure": 0.016819585755817053,
+          "disk_io_pressure": 0.019073612699690157,
+          "memory_pressure": 0.8562331376163718,
+          "normal": 0.1078736639281211
+        }
+      },
+      {
+        "window_idx": 8,
+        "window_start_seconds": 20.0,
+        "window_end_seconds": 25.0,
+        "predicted_condition": "memory_pressure",
+        "confidence": 0.9460470464064078,
+        "probability_normal": 0.022954355008789017,
+        "abnormality_score": 0.9770456449912109,
+        "class_probabilities": {
+          "cpu_pressure": 0.0160247522779346,
+          "disk_io_pressure": 0.0149738463068685,
+          "memory_pressure": 0.9460470464064078,
+          "normal": 0.022954355008789017
+        }
+      },
+      {
+        "window_idx": 9,
+        "window_start_seconds": 22.5,
+        "window_end_seconds": 27.5,
+        "predicted_condition": "memory_pressure",
+        "confidence": 0.9266279963149108,
+        "probability_normal": 0.040788233344847415,
+        "abnormality_score": 0.9592117666551526,
+        "class_probabilities": {
+          "cpu_pressure": 0.016670983499310045,
+          "disk_io_pressure": 0.015912786840931878,
+          "memory_pressure": 0.9266279963149108,
+          "normal": 0.040788233344847415
+        }
+      },
+      {
+        "window_idx": 10,
+        "window_start_seconds": 25.0,
+        "window_end_seconds": 30.0,
+        "predicted_condition": "memory_pressure",
+        "confidence": 0.8948571285208194,
+        "probability_normal": 0.06947820723265447,
+        "abnormality_score": 0.9305217927673455,
+        "class_probabilities": {
+          "cpu_pressure": 0.017487361714101573,
+          "disk_io_pressure": 0.018177302532424475,
+          "memory_pressure": 0.8948571285208194,
+          "normal": 0.06947820723265447
+        }
+      }
+    ]
+  },
+  "abnormality": {
+    "mean_score": 0.9347,
+    "max_score": 0.984,
+    "final_window_score": 0.9305,
+    "abnormal_window_count": 11,
+    "abnormal_window_ratio": 1.0,
+    "threshold": 0.8536,
+    "session_abnormal": true,
+    "per_window_scores": [
+      0.984,
+      0.9836,
+      0.9667,
+      0.9552,
+      0.8853,
+      0.8809,
+      0.8675,
+      0.8921,
+      0.977,
+      0.9592,
+      0.9305
+    ]
+  },
+  "evidence": {
+    "condition": "memory_pressure",
+    "confidence": 0.9528,
+    "abnormality_score": 0.9836,
+    "overall_interpretation": "Multiple memory-related telemetry signals moved in the expected direction for Memory Pressure.",
+    "supporting_evidence": [
+      {
+        "feature_name": "top_proc_mem_pct",
+        "display_name": "Top-Process Memory Share",
+        "observed_value": 11.8649,
+        "normal_reference": 5.9089,
+        "normal_std": 0.5404,
+        "raw_z": 11.022,
+        "directional_deviation": 10.0,
+        "expected_direction": 1,
+        "directional_score": 10.0,
+        "direction": "elevated",
+        "evidence_strength": "strong",
+        "subsystem": "memory",
+        "human_readable_statement": "Top-Process Memory Share (11.9%) was substantially elevated relative to the learned Normal reference (5.9%)."
+      },
+      {
+        "feature_name": "swap_used_pct",
+        "display_name": "Swap / Pagefile Utilization",
+        "observed_value": 5.7,
+        "normal_reference": 5.8725,
+        "normal_std": 0.0434,
+        "raw_z": -3.974,
+        "directional_deviation": 3.974,
+        "expected_direction": -1,
+        "directional_score": 3.974,
+        "direction": "reduced",
+        "evidence_strength": "strong",
+        "subsystem": "memory",
+        "human_readable_statement": "Swap / Pagefile Utilization (5.7%) was substantially lower than the learned Normal reference (5.9%)."
+      },
+      {
+        "feature_name": "ram_available_ratio",
+        "display_name": "Available Memory Ratio",
+        "observed_value": 0.1535,
+        "normal_reference": 0.2185,
+        "normal_std": 0.0223,
+        "raw_z": -2.916,
+        "directional_deviation": 2.916,
+        "expected_direction": -1,
+        "directional_score": 2.916,
+        "direction": "reduced",
+        "evidence_strength": "strong",
+        "subsystem": "memory",
+        "human_readable_statement": "Available Memory Ratio (0.15) was substantially lower than the learned Normal reference (0.22)."
+      }
+    ],
+    "contradictory_evidence": [],
+    "neutral_features": [
+      {
+        "feature_name": "ram_used_pct",
+        "display_name": "Physical RAM Utilization",
+        "observed_value": 84.64,
+        "normal_reference": 78.1536,
+        "normal_std": 2.2315,
+        "raw_z": 2.907,
+        "directional_deviation": 2.907,
+        "expected_direction": 1,
+        "directional_score": 2.907,
+        "direction": "elevated",
+        "evidence_strength": "strong",
+        "subsystem": "memory",
+        "human_readable_statement": "Physical RAM Utilization (84.6%) was substantially elevated relative to the learned Normal reference (78.2%)."
+      },
+      {
+        "feature_name": "cpu_core_imbalance",
+        "display_name": "CPU Core Load Imbalance",
+        "observed_value": 35.71,
+        "normal_reference": 53.5841,
+        "normal_std": 12.6505,
+        "raw_z": -1.413,
+        "directional_deviation": 1.413,
+        "expected_direction": -1,
+        "directional_score": 1.413,
+        "direction": "reduced",
+        "evidence_strength": "moderate",
+        "subsystem": "cpu",
+        "human_readable_statement": "CPU Core Load Imbalance (35.7%) showed moderate reduction compared to Normal reference (53.6%)."
+      },
+      {
+        "feature_name": "cpu_mean",
+        "display_name": "Average CPU Utilization",
+        "observed_value": 10.63,
+        "normal_reference": 18.6243,
+        "normal_std": 7.1518,
+        "raw_z": -1.118,
+        "directional_deviation": -0.0,
+        "expected_direction": 0,
+        "directional_score": -0.0,
+        "direction": "reduced",
+        "evidence_strength": "weak",
+        "subsystem": "cpu",
+        "human_readable_statement": "Average CPU Utilization (10.6%) showed weak or neutral deviation from Normal reference (18.6%)."
+      },
+      {
+        "feature_name": "cpu_max",
+        "display_name": "Peak Core CPU Utilization",
+        "observed_value": 20.1,
+        "normal_reference": 31.7955,
+        "normal_std": 11.7787,
+        "raw_z": -0.993,
+        "directional_deviation": -0.0,
+        "expected_direction": 0,
+        "directional_score": -0.0,
+        "direction": "reduced",
+        "evidence_strength": "weak",
+        "subsystem": "cpu",
+        "human_readable_statement": "Peak Core CPU Utilization (20.1%) showed weak or neutral deviation from Normal reference (31.8%)."
+      },
+      {
+        "feature_name": "cpu_std",
+        "display_name": "CPU Volatility",
+        "observed_value": 6.2423,
+        "normal_reference": 7.4329,
+        "normal_std": 3.245,
+        "raw_z": -0.367,
+        "directional_deviation": -0.0,
+        "expected_direction": 0,
+        "directional_score": -0.0,
+        "direction": "stable",
+        "evidence_strength": "weak",
+        "subsystem": "cpu",
+        "human_readable_statement": "CPU Volatility (6.2%) showed weak or neutral deviation from Normal reference (7.4%)."
+      },
+      {
+        "feature_name": "disk_io_rate_norm",
+        "display_name": "Disk I/O Throughput Rate",
+        "observed_value": 5.031,
+        "normal_reference": 5.8392,
+        "normal_std": 0.6293,
+        "raw_z": -1.284,
+        "directional_deviation": -0.0,
+        "expected_direction": 0,
+        "directional_score": -0.0,
+        "direction": "reduced",
+        "evidence_strength": "weak",
+        "subsystem": "disk",
+        "human_readable_statement": "Disk I/O Throughput Rate (5.03) showed weak or neutral deviation from Normal reference (5.84)."
+      },
+      {
+        "feature_name": "disk_iops_norm",
+        "display_name": "Disk Operation Frequency (IOPS)",
+        "observed_value": 0.9322,
+        "normal_reference": 1.4382,
+        "normal_std": 0.5163,
+        "raw_z": -0.98,
+        "directional_deviation": -0.0,
+        "expected_direction": 0,
+        "directional_score": -0.0,
+        "direction": "reduced",
+        "evidence_strength": "weak",
+        "subsystem": "disk",
+        "human_readable_statement": "Disk Operation Frequency (IOPS) (0.93) showed weak or neutral deviation from Normal reference (1.44)."
+      },
+      {
+        "feature_name": "process_count_delta",
+        "display_name": "Process Count Variation",
+        "observed_value": 0.0,
+        "normal_reference": 0.2273,
+        "normal_std": 0.9851,
+        "raw_z": -0.231,
+        "directional_deviation": -0.0,
+        "expected_direction": 0,
+        "directional_score": -0.0,
+        "direction": "stable",
+        "evidence_strength": "weak",
+        "subsystem": "cpu",
+        "human_readable_statement": "Process Count Variation (0) showed weak or neutral deviation from Normal reference (+0)."
+      },
+      {
+        "feature_name": "top_proc_cpu_ratio",
+        "display_name": "Top-Process CPU Dominance",
+        "observed_value": 0.271,
+        "normal_reference": 0.2464,
+        "normal_std": 0.0913,
+        "raw_z": 0.269,
+        "directional_deviation": 0.0,
+        "expected_direction": 0,
+        "directional_score": 0.0,
+        "direction": "stable",
+        "evidence_strength": "weak",
+        "subsystem": "cpu",
+        "human_readable_statement": "Top-Process CPU Dominance (0.27) showed weak or neutral deviation from Normal reference (0.25)."
+      }
+    ],
+    "evidence_score": 5.63,
+    "evidence_consistency": 1.0,
+    "invalid_features": [],
+    "class_probabilities": {
+      "cpu_pressure": 0.015876307809491726,
+      "disk_io_pressure": 0.014856384963049417,
+      "memory_pressure": 0.9528296305157283,
+      "normal": 0.01643767671173048
+    },
+    "evaluated_features_count": 12,
+    "representative_window_idx": 1,
+    "representative_window_time": "2.5s-7.5s"
+  },
+  "discovery": {
+    "predicted_condition": "memory_pressure",
+    "discovery_status": "SUSTAINED_PRESSURE",
+    "observed_sequence": [
+      "ram_available_ratio",
+      "ram_used_pct",
+      "swap_used_pct",
+      "top_proc_mem_pct"
+    ],
+    "canonical_sequence": [
+      "swap_used_pct"
+    ],
+    "matched_features": [
+      "swap_used_pct"
+    ],
+    "missing_features": [],
+    "unexpected_features": [
+      "ram_available_ratio",
+      "ram_used_pct",
+      "top_proc_mem_pct"
+    ],
+    "onset_events": [
+      {
+        "feature_name": "ram_available_ratio",
+        "onset_window": 0,
+        "onset_time_seconds": 0.0,
+        "directional_score": 2.908,
+        "consecutive_window_confirmation": true,
+        "expected_direction": -1
+      },
+      {
+        "feature_name": "ram_used_pct",
+        "onset_window": 0,
+        "onset_time_seconds": 0.0,
+        "directional_score": 2.889,
+        "consecutive_window_confirmation": true,
+        "expected_direction": 1
+      },
+      {
+        "feature_name": "swap_used_pct",
+        "onset_window": 0,
+        "onset_time_seconds": 0.0,
+        "directional_score": 3.974,
+        "consecutive_window_confirmation": true,
+        "expected_direction": -1
+      },
+      {
+        "feature_name": "top_proc_mem_pct",
+        "onset_window": 0,
+        "onset_time_seconds": 0.0,
+        "directional_score": 4.435,
+        "consecutive_window_confirmation": true,
+        "expected_direction": 1
+      }
+    ],
+    "kendall_tau": null,
+    "normalized_tau": null,
+    "discovery_coverage": 1.0,
+    "temporal_agreement": null,
+    "interpretation": "Sustained operating pressure detected; no transition observed during capture."
+  },
+  "performance": {
+    "capture_duration_seconds": 30.0,
+    "feature_extraction_ms": 9.09,
+    "inference_ms": 166.7,
+    "evidence_ms": 2.14,
+    "discovery_ms": 1.42,
+    "reporting_ms": 0.0,
+    "total_analysis_ms": 179.35
+  },
+  "metadata": {
+    "model_version": "sigmoid",
+    "abnormality_threshold": 0.8536315574465564,
+    "feature_names": [
+      "cpu_mean",
+      "cpu_max",
+      "cpu_std",
+      "cpu_core_imbalance",
+      "ram_used_pct",
+      "ram_available_ratio",
+      "swap_used_pct",
+      "disk_io_rate_norm",
+      "disk_iops_norm",
+      "process_count_delta",
+      "top_proc_cpu_ratio",
+      "top_proc_mem_pct"
+    ],
+    "pipeline_version": "1.0.0"
+  }
+}

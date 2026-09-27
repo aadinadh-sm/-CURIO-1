@@ -1,0 +1,5 @@
+condition,cpu_mean,cpu_max,cpu_std,cpu_core_imbalance,ram_used_pct,ram_available_ratio,swap_used_pct,disk_io_rate_norm,disk_iops_norm,process_count_delta,top_proc_cpu_ratio,top_proc_mem_pct
+cpu_pressure,86.067,89.256,2.169,31.378,86.384,0.136,2.0,5.852,1.469,2.444,0.089,9.406
+disk_io_pressure,19.874,29.2,5.029,53.53,83.822,0.162,6.261,8.469,2.87,-0.556,0.303,8.997
+memory_pressure,22.283,37.956,9.56,47.711,84.099,0.159,2.0,6.192,1.78,-0.333,0.222,9.355
+normal,14.517,25.217,6.503,47.515,82.288,0.177,2.0,6.212,1.635,0.0,0.239,9.378

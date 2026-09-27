@@ -1,0 +1,8 @@
+session_id,condition,stress_level,sample_count,window_count,nans,infs,active_onsets_count,distinct_onsets_count,discovery_verdict
+local_dev_laptop_normal_none_86161281,normal,none,61,11,0,0,10,3,Operating Equilibrium: No escalation detected. Telemetry remained within normal baseline boundaries.
+local_dev_laptop_cpu_pressure_low_27fbc03b,cpu_pressure,low,61,11,0,0,11,4,Dynamic escalation observed across 4 distinct onset stages.
+local_dev_laptop_cpu_pressure_high_d27bef32,cpu_pressure,high,61,11,0,0,12,4,Dynamic escalation observed across 4 distinct onset stages.
+local_dev_laptop_memory_pressure_low_62e9183a,memory_pressure,low,61,11,0,0,8,3,Dynamic escalation observed across 3 distinct onset stages.
+local_dev_laptop_memory_pressure_high_88228995,memory_pressure,high,61,11,0,0,10,4,Dynamic escalation observed across 4 distinct onset stages.
+local_dev_laptop_disk_io_pressure_low_a2b8c841,disk_io_pressure,low,61,11,0,0,10,3,Dynamic escalation observed across 3 distinct onset stages.
+local_dev_laptop_disk_io_pressure_high_bbcda504,disk_io_pressure,high,61,11,0,0,9,4,Dynamic escalation observed across 4 distinct onset stages.

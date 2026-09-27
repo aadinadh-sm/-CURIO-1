@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0.0",
+  "machine_id": "physical_machine_A",
+  "created_at": "2026-09-27T17:53:45.940560+00:00",
+  "hardware": {
+    "hostname": "LAPTOP-I0G3I8PA",
+    "operating_system": "Windows 11 (10.0.26200)",
+    "cpu_model": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD",
+    "architecture": "AMD64",
+    "logical_cpu_count": 16,
+    "physical_cpu_count": 8,
+    "total_ram_gb": 15.82,
+    "total_swap_gb": 18.0,
+    "storage_partitions": [
+      {
+        "device": "C:\\",
+        "mountpoint": "C:\\",
+        "fstype": "NTFS",
+        "total_gb": 447.35
+      }
+    ]
+  },
+  "environment": {
+    "python_version": "3.14.2",
+    "psutil_version": "7.2.2",
+    "sklearn_version": "1.9.0",
+    "numpy_version": "2.4.2",
+    "pandas_version": "3.0.3",
+    "joblib_version": "1.5.3",
+    "curio_version": "v0.9.0-dev"
+  },
+  "protocol": {
+    "target_classes": [
+      "normal",
+      "cpu_pressure",
+      "memory_pressure",
+      "disk_io_pressure"
+    ],
+    "features_count": 12,
+    "features_list": [
+      "cpu_mean",
+      "cpu_max",
+      "cpu_std",
+      "cpu_core_imbalance",
+      "ram_used_pct",
+      "ram_available_ratio",
+      "swap_used_pct",
+      "disk_io_rate_norm",
+      "disk_iops_norm",
+      "process_count_delta",
+      "top_proc_cpu_ratio",
+      "top_proc_mem_pct"
+    ],
+    "sample_rate_hz": 2.0,
+    "session_duration_s": 30.0,
+    "window_duration_s": 5.0,
+    "step_duration_s": 2.5,
+    "samples_per_session": 61,
+    "windows_per_session": 11
+  },
+  "dataset_summary": {
+    "raw_sessions_count": 22,
+    "processed_sessions_count": 22,
+    "total_feature_windows": 242,
+    "condition_breakdown": {
+      "cpu_pressure": 6,
+      "disk_io_pressure": 6,
+      "memory_pressure": 6,
+      "normal": 4
+    },
+    "session_ids": [
+      "physical_machine_A_cpu_pressure_high_b4e1568b",
+      "physical_machine_A_cpu_pressure_high_d242bc33",
+      "physical_machine_A_cpu_pressure_low_76682e9b",
+      "physical_machine_A_cpu_pressure_low_7f4b32cb",
+      "physical_machine_A_cpu_pressure_med_7f4719ce",
+      "physical_machine_A_cpu_pressure_med_ef4c5e97",
+      "physical_machine_A_disk_io_pressure_high_63628538",
+      "physical_machine_A_disk_io_pressure_high_cf48bef4",
+      "physical_machine_A_disk_io_pressure_low_8c6bf08c",
+      "physical_machine_A_disk_io_pressure_low_a081da95",
+      "physical_machine_A_disk_io_pressure_med_5a4722ea",
+      "physical_machine_A_disk_io_pressure_med_b4ff0086",
+      "physical_machine_A_memory_pressure_high_b8adbb32",
+      "physical_machine_A_memory_pressure_high_d7518d53",
+      "physical_machine_A_memory_pressure_low_17cca6d0",
+      "physical_machine_A_memory_pressure_low_f91b8c0e",
+      "physical_machine_A_memory_pressure_med_b3a468d6",
+      "physical_machine_A_memory_pressure_med_e1eb5a7a",
+      "physical_machine_A_normal_none_5743354b",
+      "physical_machine_A_normal_none_9030e3fc",
+      "physical_machine_A_normal_none_da864ca3",
+      "physical_machine_A_normal_none_df3ba8f6"
+    ]
+  }
+}

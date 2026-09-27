@@ -1,0 +1,30 @@
+{
+  "feature_names": [
+    "cpu_mean",
+    "cpu_max",
+    "cpu_std",
+    "cpu_core_imbalance",
+    "ram_used_pct",
+    "ram_available_ratio",
+    "swap_used_pct",
+    "disk_io_rate_norm",
+    "disk_iops_norm",
+    "process_count_delta",
+    "top_proc_cpu_ratio",
+    "top_proc_mem_pct"
+  ],
+  "feature_importances": {
+    "cpu_mean": 0.13884238615687736,
+    "cpu_max": 0.16923953979663078,
+    "cpu_std": 0.031863149970665035,
+    "cpu_core_imbalance": 0.008608696886800724,
+    "ram_used_pct": 0.07638501117228359,
+    "ram_available_ratio": 0.08463698603586267,
+    "swap_used_pct": 0.07820271571413513,
+    "disk_io_rate_norm": 0.12399285235863496,
+    "disk_iops_norm": 0.14433268902995158,
+    "process_count_delta": 0.0058967860376043305,
+    "top_proc_cpu_ratio": 0.06166108067839221,
+    "top_proc_mem_pct": 0.07633810616216159
+  }
+}

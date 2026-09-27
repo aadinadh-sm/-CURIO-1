@@ -1,0 +1,8 @@
+{
+  "methodology": "95th percentile of training Normal calibrated abnormality scores",
+  "target_train_fpr": 0.05,
+  "abnormality_threshold": 0.07364194967726964,
+  "training_normal_windows": 44,
+  "held_out_machine": "machine_B_laptop_intel_8c",
+  "caveat": "Empirical threshold on training hardware; not a guaranteed 5% FPR on unseen machines."
+}

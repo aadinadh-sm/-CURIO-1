@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "machine_id": "test_machine_T",
+  "created_at": "2026-09-27T17:55:09.170300+00:00",
+  "hardware": {
+    "hostname": "LAPTOP-I0G3I8PA",
+    "operating_system": "Windows 11 (10.0.26200)",
+    "cpu_model": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD",
+    "architecture": "AMD64",
+    "logical_cpu_count": 16,
+    "physical_cpu_count": 8,
+    "total_ram_gb": 15.82,
+    "total_swap_gb": 18.0,
+    "storage_partitions": [
+      {
+        "device": "C:\\",
+        "mountpoint": "C:\\",
+        "fstype": "NTFS",
+        "total_gb": 447.35
+      }
+    ]
+  },
+  "environment": {
+    "python_version": "3.14.2",
+    "psutil_version": "7.2.2",
+    "sklearn_version": "1.9.0",
+    "numpy_version": "2.4.2",
+    "pandas_version": "3.0.3",
+    "joblib_version": "1.5.3",
+    "curio_version": "v0.9.0-dev"
+  },
+  "protocol": {
+    "target_classes": [
+      "normal",
+      "cpu_pressure",
+      "memory_pressure",
+      "disk_io_pressure"
+    ],
+    "features_count": 12,
+    "features_list": [
+      "cpu_mean",
+      "cpu_max",
+      "cpu_std",
+      "cpu_core_imbalance",
+      "ram_used_pct",
+      "ram_available_ratio",
+      "swap_used_pct",
+      "disk_io_rate_norm",
+      "disk_iops_norm",
+      "process_count_delta",
+      "top_proc_cpu_ratio",
+      "top_proc_mem_pct"
+    ],
+    "sample_rate_hz": 2.0,
+    "session_duration_s": 30.0,
+    "window_duration_s": 5.0,
+    "step_duration_s": 2.5,
+    "samples_per_session": 61,
+    "windows_per_session": 11
+  },
+  "dataset_summary": {
+    "raw_sessions_count": 0,
+    "processed_sessions_count": 0,
+    "total_feature_windows": 0,
+    "condition_breakdown": {},
+    "session_ids": []
+  }
+}

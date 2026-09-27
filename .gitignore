@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+*.tmp
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Node & Frontend dependencies
+node_modules/
+frontend/node_modules/
+.npm/
+
+# Vite / Vitest cache
+.vite/
+frontend/.vite/
+
+# IDE & Editor caches
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary release and export artifacts
+dist/tmp/

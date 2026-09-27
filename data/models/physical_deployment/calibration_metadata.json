@@ -1,0 +1,17 @@
+{
+  "method": "sigmoid",
+  "n_calibration_splits": 3,
+  "group_variable": "session_id",
+  "classes": [
+    "cpu_pressure",
+    "disk_io_pressure",
+    "memory_pressure",
+    "normal"
+  ],
+  "rf_params": {
+    "n_estimators": 100,
+    "random_state": 42,
+    "n_jobs": -1,
+    "class_weight": "balanced"
+  }
+}

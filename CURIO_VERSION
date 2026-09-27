@@ -1,0 +1,22 @@
+CURIO 1.0.0
+
+[SYSTEM FREEZE SPECIFICATION]
+System Name: CURIO Intelligent Machine Learning Discovery and Computer Diagnosis System
+Release Version: 1.0.0
+Date: 2026-09-28
+Status: PRODUCTION FREEZE (Cap-stone Ready)
+
+[COMPONENT VERSIONS]
+Feature Schema Version: 1.0.0 (12 Frozen Features, 11 Rolling Windows, 5.0s Window, 2.5s Step)
+Model Version: 1.0.0 (RandomForestClassifier 100 Trees, Sigmoid Calibration, OOF Threshold 0.8536)
+API Version: 1.0.0 (FastAPI REST Service, Bound strictly to 127.0.0.1:8000)
+UI Version: 1.0.0 (React 19 + TypeScript + Vite 8 Desktop Diagnostic Presentation Layer)
+Dataset Schema Version: 1.0.0 (Rules A through P compliant, SHA-256 Verified)
+
+[FROZEN ARCHITECTURAL CONSTANTS]
+Classes: normal, cpu_pressure, memory_pressure, disk_io_pressure (4 classes)
+Sampling Frequency: 2.0 Hz (0.5s interval)
+Capture Duration: 30.0 seconds (61 discrete samples)
+Evidence Profile: Training-only Normal centroid baselines
+Discovery Progression: Kendall tau-b rank correlation with fallback states
+Local-Only Invariant: Zero egress, 127.0.0.1 interface binding
