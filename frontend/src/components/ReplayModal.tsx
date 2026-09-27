@@ -70,7 +70,7 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({
             >
               <span>REPLAY / DEMO MODE (DEVELOPMENT TELEMETRY)</span>
             </div>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
               Instant Telemetry Replay
             </h2>
           </div>
@@ -94,7 +94,7 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({
                   onClose();
                 }}
                 style={{
-                  background: '#0d0d10',
+                  background: 'var(--bg-surface-inset)',
                   border: '1px solid var(--border-subtle)',
                   borderRadius: 'var(--radius-sm)',
                   padding: '0.85rem 1rem',
@@ -106,11 +106,11 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = 'var(--border-focus)';
-                  e.currentTarget.style.background = '#141418';
+                  e.currentTarget.style.background = 'var(--bg-surface-elevated)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = 'var(--border-subtle)';
-                  e.currentTarget.style.background = '#0d0d10';
+                  e.currentTarget.style.background = 'var(--bg-surface-inset)';
                 }}
               >
                 <div
@@ -118,7 +118,7 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({
                     width: '32px',
                     height: '32px',
                     borderRadius: 'var(--radius-xs)',
-                    background: '#18181b',
+                    background: 'var(--bg-surface-elevated)',
                     border: '1px solid var(--border-subtle)',
                     display: 'flex',
                     alignItems: 'center',
@@ -129,7 +129,7 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({
                   <IconComponent size={16} />
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 600, fontSize: '0.9rem', color: '#fff' }}>{c.name}</div>
+                  <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-primary)' }}>{c.name}</div>
                   <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{c.description}</div>
                 </div>
                 <div style={{ color: 'var(--text-secondary)', fontWeight: 500, fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>

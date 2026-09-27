@@ -48,20 +48,7 @@ export const TopBar: React.FC<TopBarProps> = ({
       </div>
 
       <div className="topbar-actions">
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.4rem',
-            padding: '0.2rem 0.5rem',
-            borderRadius: 'var(--radius-xs)',
-            background: '#111114',
-            border: '1px solid var(--border-muted)',
-            fontSize: '0.72rem',
-            fontFamily: 'var(--font-mono)',
-            color: 'var(--text-muted)',
-          }}
-        >
+        <div className="engine-status-pill">
           <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981' }}></span>
           <span>Engine: Ready (2 Hz)</span>
         </div>

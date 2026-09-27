@@ -54,7 +54,7 @@ export const HistoryScreen: React.FC<HistoryScreenProps> = ({ onSelectRecord, on
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
         <div>
-          <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
+          <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
             Diagnosis History
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
@@ -144,7 +144,7 @@ export const HistoryScreen: React.FC<HistoryScreenProps> = ({ onSelectRecord, on
                 return (
                   <tr key={item.session_id} onClick={() => handleRowClick(item.session_id)}>
                     <td style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>{formattedDate}</td>
-                    <td style={{ fontWeight: 600, color: isNormal ? 'var(--text-primary)' : '#fafafa' }}>
+                    <td style={{ fontWeight: 600, color: isNormal ? 'var(--text-primary)' : 'var(--text-primary)' }}>
                       {isNormal ? 'Normal Operation' : item.condition.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}
                     </td>
                     <td style={{ fontFamily: 'var(--font-mono)' }}>

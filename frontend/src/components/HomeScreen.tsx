@@ -143,7 +143,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </p>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', marginTop: '0.2rem' }}>
             <ShieldCheck size={13} style={{ color: '#10b981' }} />
-            <span style={{ fontSize: '0.72rem', color: '#a7f3d0', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: '0.72rem', color: '#58775d', fontFamily: 'var(--font-mono)' }}>
               Your data stays on this computer.
             </span>
           </div>

@@ -124,8 +124,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 fontFamily: 'var(--font-mono)',
                 padding: '0.1rem 0.35rem',
                 borderRadius: '3px',
-                background: technicalMode ? 'rgba(56, 189, 248, 0.15)' : '#18181c',
-                color: technicalMode ? '#38bdf8' : 'var(--text-muted)',
+                background: technicalMode ? 'rgba(56, 189, 248, 0.15)' : 'var(--bg-surface-inset)',
+                color: technicalMode ? '#38bdf8' : 'var(--text-secondary)',
                 border: '1px solid var(--border-subtle)',
               }}
             >
@@ -154,7 +154,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="status-dot-emerald"></div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.2 }}>Local Only</span>
-            <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)', lineHeight: 1.2 }}>127.0.0.1:8000</span>
+            <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)', lineHeight: 1.2 }}>Telemetry stays here</span>
           </div>
         </div>
       </div>

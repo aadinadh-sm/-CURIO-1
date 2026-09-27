@@ -84,7 +84,7 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
         <div style={{ display: 'inline-flex', padding: '0.75rem', borderRadius: '50%', background: 'rgba(244, 63, 94, 0.1)', border: '1px solid rgba(244, 63, 94, 0.2)', marginBottom: '1.25rem', color: '#fda4af' }}>
           <XCircle size={28} />
         </div>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.5rem', color: '#fff', letterSpacing: '-0.02em' }}>
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
           Diagnosis Cancelled
         </h2>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '1.75rem', fontSize: '0.9rem' }}>
@@ -145,7 +145,7 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
         <span>DIAGNOSIS IN PROGRESS</span>
       </div>
 
-      <h2 style={{ fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '0.4rem', color: '#fff' }}>
+      <h2 style={{ fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '0.4rem', color: 'var(--text-primary)' }}>
         CURIO is analyzing your computer
       </h2>
 
@@ -208,7 +208,7 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
 
       <div
         style={{
-          background: '#0d0d10',
+          background: 'var(--bg-surface-inset)',
           border: '1px solid var(--border-subtle)',
           borderRadius: 'var(--radius-sm)',
           padding: '0.85rem 1rem',

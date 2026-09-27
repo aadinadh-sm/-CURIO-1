@@ -22,7 +22,7 @@ export const TechnicalModal: React.FC<TechnicalModalProps> = ({ result, onClose 
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.85rem' }}>
           <div>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Terminal size={18} style={{ color: 'var(--text-muted)' }} />
               <span>Technical Diagnostics & Telemetry Inspection</span>
             </h2>
@@ -40,23 +40,23 @@ export const TechnicalModal: React.FC<TechnicalModalProps> = ({ result, onClose 
 
         {/* 1. Class Probabilities & Abnormality */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '1.75rem' }}>
-          <div style={{ background: '#0d0d10', padding: '1.1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
+          <div style={{ background: 'var(--bg-surface-inset)', padding: '1.1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
             <h3 style={{ fontSize: '0.74rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700, fontFamily: 'var(--font-mono)', marginBottom: '0.65rem' }}>
               Calibrated Class Probabilities (Mean across 11 windows)
             </h3>
             {Object.entries(diag.class_probabilities || {}).map(([cName, pVal]) => (
               <div key={cName} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.35rem', fontFamily: 'var(--font-mono)', fontSize: '0.82rem' }}>
-                <span style={{ color: cName === diag.condition ? '#fafafa' : 'var(--text-secondary)' }}>
+                <span style={{ color: cName === diag.condition ? 'var(--text-primary)' : 'var(--text-secondary)' }}>
                   {cName}:
                 </span>
-                <span style={{ fontWeight: 600, color: cName === diag.condition ? '#38bdf8' : 'var(--text-muted)' }}>
+                <span style={{ fontWeight: 600, color: cName === diag.condition ? 'var(--accent-blue)' : 'var(--text-muted)' }}>
                   {(pVal * 100).toFixed(2)}% ({pVal.toFixed(4)})
                 </span>
               </div>
             ))}
           </div>
 
-          <div style={{ background: '#0d0d10', padding: '1.1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
+          <div style={{ background: 'var(--bg-surface-inset)', padding: '1.1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
             <h3 style={{ fontSize: '0.74rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700, fontFamily: 'var(--font-mono)', marginBottom: '0.65rem' }}>
               Abnormality Assessment
             </h3>
@@ -66,7 +66,7 @@ export const TechnicalModal: React.FC<TechnicalModalProps> = ({ result, onClose 
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.35rem', fontFamily: 'var(--font-mono)', fontSize: '0.82rem' }}>
               <span style={{ color: 'var(--text-secondary)' }}>Mean Abnormality Score:</span>
-              <span style={{ fontWeight: 600, color: abn.session_abnormal ? '#fbbf24' : '#34d399' }}>{abn.mean_score.toFixed(4)}</span>
+              <span style={{ fontWeight: 600, color: abn.session_abnormal ? 'var(--status-abnormal)' : 'var(--status-normal)' }}>{abn.mean_score.toFixed(4)}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.35rem', fontFamily: 'var(--font-mono)', fontSize: '0.82rem' }}>
               <span style={{ color: 'var(--text-secondary)' }}>Max Abnormality Score:</span>
@@ -74,7 +74,7 @@ export const TechnicalModal: React.FC<TechnicalModalProps> = ({ result, onClose 
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.35rem', fontFamily: 'var(--font-mono)', fontSize: '0.82rem' }}>
               <span style={{ color: 'var(--text-secondary)' }}>Abnormal Windows:</span>
-              <span style={{ fontWeight: 600, color: abn.session_abnormal ? '#fbbf24' : '#34d399' }}>
+              <span style={{ fontWeight: 600, color: abn.session_abnormal ? 'var(--status-abnormal)' : 'var(--status-normal)' }}>
                 {abn.abnormal_window_count} / 11 ({(abn.abnormal_window_ratio * 100).toFixed(1)}%)
               </span>
             </div>
@@ -83,10 +83,10 @@ export const TechnicalModal: React.FC<TechnicalModalProps> = ({ result, onClose 
 
         {/* 2. 11-Window Timeline Trajectory */}
         <div style={{ marginBottom: '1.75rem' }}>
-          <h3 style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.65rem', color: '#fff', letterSpacing: '-0.01em' }}>
+          <h3 style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.65rem', color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
             11-Window Diagnostic Trajectory
           </h3>
-          <div style={{ overflowX: 'auto', background: '#0d0d10', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)' }}>
+          <div style={{ overflowX: 'auto', background: 'var(--bg-surface-inset)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)' }}>
             <table className="curio-table" style={{ fontSize: '0.78rem' }}>
               <thead>
                 <tr>
@@ -108,7 +108,7 @@ export const TechnicalModal: React.FC<TechnicalModalProps> = ({ result, onClose 
                         <td style={{ fontFamily: 'var(--font-mono)' }}>
                           {w.window_start_seconds.toFixed(1)}s - {w.window_end_seconds.toFixed(1)}s
                         </td>
-                        <td style={{ fontWeight: 600, color: w.predicted_condition === 'normal' ? 'var(--text-secondary)' : '#fafafa' }}>
+                        <td style={{ fontWeight: 600, color: w.predicted_condition === 'normal' ? 'var(--text-secondary)' : 'var(--text-primary)' }}>
                           {w.predicted_condition}
                         </td>
                         <td style={{ fontFamily: 'var(--font-mono)' }}>{(w.probability_normal * 100).toFixed(1)}%</td>
@@ -124,7 +124,7 @@ export const TechnicalModal: React.FC<TechnicalModalProps> = ({ result, onClose 
                               fontWeight: 700,
                               fontFamily: 'var(--font-mono)',
                               background: isWinAbnormal ? 'rgba(245, 158, 11, 0.1)' : 'rgba(16, 185, 129, 0.1)',
-                              color: isWinAbnormal ? '#fbbf24' : '#34d399',
+                              color: isWinAbnormal ? 'var(--status-abnormal)' : 'var(--status-normal)',
                               border: isWinAbnormal ? '1px solid rgba(245, 158, 11, 0.25)' : '1px solid rgba(16, 185, 129, 0.25)',
                             }}
                           >
@@ -141,48 +141,48 @@ export const TechnicalModal: React.FC<TechnicalModalProps> = ({ result, onClose 
 
         {/* 3. Performance Latency Breakdown */}
         <div style={{ marginBottom: '1.75rem' }}>
-          <h3 style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.65rem', color: '#fff', letterSpacing: '-0.01em' }}>
+          <h3 style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.65rem', color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
             Performance Latency Breakdown
           </h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.65rem' }}>
-            <div style={{ background: '#0d0d10', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', padding: '0.75rem' }}>
+            <div style={{ background: 'var(--bg-surface-inset)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', padding: '0.75rem' }}>
               <span className="metric-label">Capture Duration</span>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', fontWeight: 600 }}>
                 {perf.capture_duration_seconds.toFixed(1)}s
               </div>
             </div>
 
-            <div style={{ background: '#0d0d10', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', padding: '0.75rem' }}>
+            <div style={{ background: 'var(--bg-surface-inset)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', padding: '0.75rem' }}>
               <span className="metric-label">Feature Extraction</span>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', fontWeight: 600 }}>
                 {perf.feature_extraction_ms.toFixed(1)} ms
               </div>
             </div>
 
-            <div style={{ background: '#0d0d10', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', padding: '0.75rem' }}>
+            <div style={{ background: 'var(--bg-surface-inset)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', padding: '0.75rem' }}>
               <span className="metric-label">ML Inference</span>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', fontWeight: 600, color: '#38bdf8' }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', fontWeight: 600, color: 'var(--accent-blue)' }}>
                 {perf.inference_ms.toFixed(1)} ms
               </div>
             </div>
 
-            <div style={{ background: '#0d0d10', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', padding: '0.75rem' }}>
+            <div style={{ background: 'var(--bg-surface-inset)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', padding: '0.75rem' }}>
               <span className="metric-label">Evidence Engine</span>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', fontWeight: 600 }}>
                 {perf.evidence_ms.toFixed(1)} ms
               </div>
             </div>
 
-            <div style={{ background: '#0d0d10', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', padding: '0.75rem' }}>
+            <div style={{ background: 'var(--bg-surface-inset)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', padding: '0.75rem' }}>
               <span className="metric-label">Discovery Engine</span>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', fontWeight: 600 }}>
                 {perf.discovery_ms.toFixed(1)} ms
               </div>
             </div>
 
-            <div style={{ background: '#0d0d10', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', padding: '0.75rem' }}>
+            <div style={{ background: 'var(--bg-surface-inset)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', padding: '0.75rem' }}>
               <span className="metric-label">Total Analysis</span>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', fontWeight: 700, color: '#34d399' }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', fontWeight: 700, color: 'var(--status-normal)' }}>
                 {perf.total_analysis_ms.toFixed(1)} ms
               </div>
             </div>
@@ -191,10 +191,10 @@ export const TechnicalModal: React.FC<TechnicalModalProps> = ({ result, onClose 
 
         {/* 4. Evaluated Feature Set Matrix */}
         <div>
-          <h3 style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.65rem', color: '#fff', letterSpacing: '-0.01em' }}>
+          <h3 style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.65rem', color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
             Representative Window Feature Attribution Matrix
           </h3>
-          <div style={{ overflowX: 'auto', background: '#0d0d10', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)' }}>
+          <div style={{ overflowX: 'auto', background: 'var(--bg-surface-inset)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)' }}>
             <table className="curio-table" style={{ fontSize: '0.78rem' }}>
               <thead>
                 <tr>
@@ -215,7 +215,7 @@ export const TechnicalModal: React.FC<TechnicalModalProps> = ({ result, onClose 
                     <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
                       {typeof item.normal_reference === 'number' ? item.normal_reference.toFixed(2) : '—'}
                     </td>
-                    <td style={{ fontFamily: 'var(--font-mono)', color: item.directional_score > 0 ? '#38bdf8' : 'var(--text-muted)' }}>
+                    <td style={{ fontFamily: 'var(--font-mono)', color: item.directional_score > 0 ? 'var(--accent-blue)' : 'var(--text-muted)' }}>
                       {typeof item.directional_score === 'number' ? item.directional_score.toFixed(2) : '0.00'}
                     </td>
                     <td>
