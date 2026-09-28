@@ -23,9 +23,9 @@ export const HistoryScreen: React.FC<HistoryScreenProps> = ({ onSelectRecord, on
           setLoading(false);
         }
       })
-      .catch((err) => {
+      .catch(() => {
         if (isMounted) {
-          setError(err.message || 'Failed to load diagnosis history.');
+          setError('CURIO could not load your past checks. Please try again.');
           setLoading(false);
         }
       });
@@ -40,7 +40,7 @@ export const HistoryScreen: React.FC<HistoryScreenProps> = ({ onSelectRecord, on
       const detail = await fetchHistoryDetail(sessionId);
       onSelectRecord(detail);
     } catch (err: any) {
-      alert(`Could not load record detail: ${err.message}`);
+      alert('CURIO could not open this check. Please try again.');
     }
   };
 
@@ -55,16 +55,16 @@ export const HistoryScreen: React.FC<HistoryScreenProps> = ({ onSelectRecord, on
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
         <div>
           <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
-            Diagnosis History
+            Past checks
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
-            Recorded diagnostic sessions stored locally on this machine.
+            Your previous checks are saved on this computer.
           </p>
         </div>
 
         <button className="btn-secondary" onClick={onBackToHome}>
           <ArrowLeft size={14} />
-          <span>Back to Diagnose</span>
+          <span>Back to home</span>
         </button>
       </div>
 
@@ -75,7 +75,7 @@ export const HistoryScreen: React.FC<HistoryScreenProps> = ({ onSelectRecord, on
             <Search size={14} style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
             <input
               type="text"
-              placeholder="Filter by condition or ID..."
+              placeholder="Search past checks..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               style={{
@@ -92,14 +92,14 @@ export const HistoryScreen: React.FC<HistoryScreenProps> = ({ onSelectRecord, on
             />
           </div>
           <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-            Showing {filteredItems.length} of {historyList.length} records
+            Showing {filteredItems.length} of {historyList.length} checks
           </span>
         </div>
       )}
 
       {loading && (
         <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-          Loading historical sessions from local storage...
+          Loading your past checks…
         </div>
       )}
 
@@ -113,10 +113,10 @@ export const HistoryScreen: React.FC<HistoryScreenProps> = ({ onSelectRecord, on
         <div style={{ background: 'var(--bg-card)', padding: '3rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', textAlign: 'center' }}>
           <FileText size={32} style={{ color: 'var(--text-muted)', margin: '0 auto 1rem auto', display: 'block' }} />
           <p style={{ color: 'var(--text-secondary)', marginBottom: '1.25rem', fontSize: '0.9rem' }}>
-            No previous diagnosis sessions recorded yet.
+            You have not run a check yet.
           </p>
           <button className="btn-primary" onClick={onBackToHome}>
-            Run First Diagnosis
+            Check my computer
           </button>
         </div>
       )}
@@ -126,12 +126,12 @@ export const HistoryScreen: React.FC<HistoryScreenProps> = ({ onSelectRecord, on
           <table className="curio-table">
             <thead>
               <tr>
-                <th>Timestamp</th>
-                <th>Condition</th>
-                <th>Confidence</th>
+                <th>Date</th>
+                <th>Result</th>
+                <th>CURIO confidence</th>
                 <th>Status</th>
-                <th>Discovery</th>
-                <th>Action</th>
+                <th>Pattern found</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -139,13 +139,13 @@ export const HistoryScreen: React.FC<HistoryScreenProps> = ({ onSelectRecord, on
                 const isNormal = item.condition === 'normal';
                 const formattedDate = item.timestamp
                   ? new Date(item.timestamp).toLocaleString()
-                  : 'N/A';
+                  : 'Date unavailable';
 
                 return (
                   <tr key={item.session_id} onClick={() => handleRowClick(item.session_id)}>
                     <td style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>{formattedDate}</td>
                     <td style={{ fontWeight: 600, color: isNormal ? 'var(--text-primary)' : 'var(--text-primary)' }}>
-                      {isNormal ? 'Normal Operation' : item.condition.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}
+                      {isNormal ? 'No problem found' : ({ cpu_pressure: 'CPU under heavy load', memory_pressure: 'Memory running low', disk_io_pressure: 'Disk under heavy load' }[item.condition] || item.condition.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))}
                     </td>
                     <td style={{ fontFamily: 'var(--font-mono)' }}>
                       {Math.round(item.confidence * 100)}%
@@ -163,15 +163,15 @@ export const HistoryScreen: React.FC<HistoryScreenProps> = ({ onSelectRecord, on
                           border: item.session_abnormal ? '1px solid rgba(245, 158, 11, 0.25)' : '1px solid rgba(16, 185, 129, 0.25)',
                         }}
                       >
-                        {item.session_abnormal ? 'ABNORMAL' : 'NORMAL'}
+                        {item.session_abnormal ? 'Check needed' : 'Looks okay'}
                       </span>
                     </td>
                     <td style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                      {item.discovery_status}
+                      {item.discovery_status === 'INSUFFICIENT_TEMPORAL_EVIDENCE' ? 'Not enough changes' : item.discovery_status === 'OPERATING_EQUILIBRIUM' ? 'No change seen' : item.discovery_status === 'SUSTAINED_PRESSURE' ? 'Issue present at start' : 'Pattern found'}
                     </td>
                     <td>
                       <span style={{ color: 'var(--text-secondary)', fontWeight: 500, fontSize: '0.78rem', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                        <span>View</span>
+                        <span>Open report</span>
                         <ChevronRight size={13} />
                       </span>
                     </td>

@@ -18,9 +18,11 @@ class TelemetryCollector:
 
     def __init__(self, sample_interval: float = 0.5):
         self.sample_interval = sample_interval
-        self._latest_process_stats: Dict[str, float] = {
+        self._latest_process_stats: Dict[str, Any] = {
             "top_proc_cpu": 0.0,
+            "top_proc_cpu_name": "",
             "top_proc_rss": 0.0,
+            "top_proc_rss_name": "",
             "proc_count": 0.0,
         }
         self._stop_event = threading.Event()
@@ -45,6 +47,8 @@ class TelemetryCollector:
         while not self._stop_event.is_set():
             max_rss = 0.0
             max_cpu = 0.0
+            max_rss_name = ""
+            max_cpu_name = ""
             p_count = 0
             try:
                 for p in psutil.process_iter(['name', 'memory_info', 'cpu_percent']):
@@ -52,17 +56,19 @@ class TelemetryCollector:
                         p_count += 1
                         if p.pid == 0:
                             continue
-                        p_name = (p.info.get('name') or '').lower()
-                        if p_name in ('system idle process', 'idle'):
+                        p_name = p.info.get('name') or ''
+                        if p_name.lower() in ('system idle process', 'idle'):
                             continue
 
                         mem = p.info.get('memory_info')
                         if mem and mem.rss > max_rss:
                             max_rss = float(mem.rss)
+                            max_rss_name = p_name
                         
                         cpu = p.info.get('cpu_percent')
                         if cpu and cpu > max_cpu:
                             max_cpu = float(cpu)
+                            max_cpu_name = p_name
                     except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                         continue
                 
@@ -71,7 +77,9 @@ class TelemetryCollector:
                 with self._lock:
                     self._latest_process_stats = {
                         "top_proc_cpu": normalized_cpu,
+                        "top_proc_cpu_name": max_cpu_name,
                         "top_proc_rss": max_rss,
+                        "top_proc_rss_name": max_rss_name,
                         "proc_count": float(p_count),
                     }
             except Exception:
@@ -129,6 +137,8 @@ class TelemetryCollector:
             "process_count": int(proc_stats["proc_count"]),
             "top_proc_cpu": float(proc_stats["top_proc_cpu"]),
             "top_proc_rss": float(proc_stats["top_proc_rss"]),
+            "top_proc_cpu_name": str(proc_stats.get("top_proc_cpu_name", "")),
+            "top_proc_rss_name": str(proc_stats.get("top_proc_rss_name", "")),
         }
 
     def collect(

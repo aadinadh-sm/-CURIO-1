@@ -67,10 +67,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       {/* Overview Header */}
       <div className="overview-header">
         <div>
-          <div className="overview-eyebrow"><span className="eyebrow-rule" /> PERSONAL COMPUTER / FIELD NOTES 01</div>
-          <h1 className="overview-title">A clearer picture<br />of your machine.</h1>
+          <div className="overview-eyebrow"><span className="eyebrow-rule" /> YOUR COMPUTER, MADE CLEARER</div>
+          <h1 className="overview-title">Find out why<br />your PC feels slow.</h1>
           <p className="overview-subtext">
-            A quick read on what’s happening under the hood. Private by design, grounded in live system signals.
+            Check your computer for common performance problems. Your readings stay on this computer.
           </p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -85,7 +85,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             }}
           >
             <Terminal size={12} />
-            <span>{technicalMode ? 'Hide technical detail' : 'Show technical detail'}</span>
+            <span>{technicalMode ? 'Hide technical details' : 'Technical details'}</span>
           </button>
         </div>
       </div>
@@ -94,9 +94,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         <div className="dataset-import-copy">
           <div className="dataset-icon"><FileSpreadsheet size={19} /></div>
           <div>
-            <div className="dataset-eyebrow">ANALYZE A CAPTURE</div>
-            <h2 id="dataset-heading">Bring your own telemetry</h2>
-            <p>Upload a CURIO raw capture. It runs through the same diagnosis, evidence, and timeline analysis as a live check.</p>
+          <div className="dataset-eyebrow">CHECK A CSV FILE</div>
+            <h2 id="dataset-heading">Analyze saved computer data</h2>
+            <p>Choose a CURIO CSV file to get a diagnosis, see which readings stood out, and review changes over time.</p>
           </div>
         </div>
         <div className="dataset-import-action">
@@ -109,20 +109,20 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           />
           <button className="btn-primary dataset-upload-button" disabled={datasetBusy} onClick={() => fileInputRef.current?.click()}>
             <Upload size={15} />
-            <span>{datasetBusy ? 'Analyzing capture…' : 'Choose a CSV'}</span>
+            <span>{datasetBusy ? 'Checking file…' : 'Choose a CSV file'}</span>
           </button>
-          <span className="dataset-file-note">{datasetName || 'CSV · 61 rows · 30 seconds'}</span>
+          <span className="dataset-file-note">{datasetName || 'CURIO CSV file'}</span>
         </div>
         <div className="dataset-import-footnote">
-          <span>Local analysis · File is not retained</span>
-          <span>Or diagnose a sample capture:</span>
+          <span>Your file is checked on this computer and is not saved by CURIO.</span>
+          <span>Try an example:</span>
         </div>
         <div className="dataset-samples">
           {[
             ['normal', 'Normal'],
-            ['cpu_pressure', 'CPU pressure'],
-            ['memory_pressure', 'Memory pressure'],
-            ['disk_io_pressure', 'Disk I/O'],
+            ['cpu_pressure', 'Busy processor'],
+            ['memory_pressure', 'Low memory'],
+            ['disk_io_pressure', 'Busy disk'],
           ].map(([condition, label]) => (
             <button key={condition} className="sample-chip" disabled={datasetBusy} onClick={() => void handleSample(condition)}>
               {label}
@@ -136,28 +136,28 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         <div className="overview-status-info">
           <div className="overview-status-heading">
             <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px rgba(16, 185, 129, 0.6)' }}></span>
-            <span>Ready when you are</span>
+            <span>Ready to check your computer</span>
           </div>
           <p className="overview-status-desc">
-            The diagnostic engine is standing by. A live check takes about 30 seconds.
+            The check takes about 30 seconds. You can keep using your computer while it runs.
           </p>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', marginTop: '0.2rem' }}>
             <ShieldCheck size={13} style={{ color: '#10b981' }} />
             <span style={{ fontSize: '0.72rem', color: '#58775d', fontFamily: 'var(--font-mono)' }}>
-              Your data stays on this computer.
+              Live reports may show busy app names. Your check details stay on this computer.
             </span>
           </div>
         </div>
 
         <div className="overview-status-actions">
-          <button className="btn-secondary" onClick={onOpenReplay} title="Replay recorded physical stress profiles">
+          <button className="btn-secondary" onClick={onOpenReplay} title="View an example result">
             <RotateCcw size={13} />
-            <span>Replay Demo</span>
+            <span>View an example</span>
           </button>
 
           <button className="btn-primary" onClick={onStartLiveDiagnosis} style={{ padding: '0.55rem 1.15rem' }}>
             <Play size={14} fill="currentColor" />
-            <span>Run a system check</span>
+            <span>Check my computer</span>
             <kbd style={{ background: '#e4e4e7', color: '#18181b', border: '1px solid #d4d4d8', marginLeft: '0.25rem' }}>⌘D</kbd>
           </button>
         </div>
@@ -170,7 +170,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           <div className="overview-panel-header">
             <div className="overview-panel-title">
               <Clock size={14} style={{ color: 'var(--text-muted)' }} />
-              <span>Recent Diagnostics</span>
+              <span>Recent checks</span>
             </div>
             <button
               onClick={onOpenHistory}
@@ -183,7 +183,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 color: 'var(--text-muted)',
               }}
             >
-              <span>View History</span>
+              <span>See all</span>
               <ArrowRight size={12} />
             </button>
           </div>
@@ -192,13 +192,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             {recentHistory.length ? recentHistory.map((record) => (
               <button className="recent-diag-item" key={record.session_id} onClick={onOpenHistory}>
                 <div className="recent-diag-condition">
-                  <span className={`status-badge ${record.session_abnormal ? 'abnormal' : 'normal'}`}>{record.condition.replace(/_pressure/g, '').replace(/_/g, ' ').toUpperCase()}</span>
-                  <span>{record.condition.replace(/_/g, ' ')}</span>
+                  <span className={`status-badge ${record.session_abnormal ? 'abnormal' : 'normal'}`}>{record.session_abnormal ? 'CHECK NEEDED' : 'LOOKS OK'}</span>
+                  <span>{{ normal: 'No problem found', cpu_pressure: 'CPU under heavy load', memory_pressure: 'Memory running low', disk_io_pressure: 'Disk under heavy load' }[record.condition] || record.condition.replace(/_/g, ' ')}</span>
                 </div>
                 <span className="recent-diag-meta">{new Date(record.timestamp).toLocaleString()} · {Math.round(record.confidence * 100)}%</span>
               </button>
             )) : (
-              <div className="history-empty-note">Your completed checks will appear here. Start a live check or analyze a CSV capture.</div>
+              <div className="history-empty-note">Your recent results will appear here after you check your computer or analyze a CSV file.</div>
             )}
           </div>
         </div>
@@ -208,17 +208,17 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           <div className="overview-panel-header">
             <div className="overview-panel-title">
               <Activity size={14} style={{ color: 'var(--text-muted)' }} />
-              <span>At a glance</span>
+              <span>CURIO status</span>
             </div>
             <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-              {systemStatus?.ready ? 'ENGINE READY' : 'CONNECTING'}
+              {systemStatus?.ready ? 'READY' : 'CONNECTING'}
             </span>
           </div>
 
           <div className="snapshot-metrics-grid">
             <div className="snapshot-metric-card">
               <div className="snapshot-metric-label">
-                <span>Model</span>
+                <span>Checker</span>
                 <Cpu size={12} />
               </div>
               <div className="snapshot-metric-val">{systemStatus?.model_loaded ? 'Ready' : '—'}</div>
@@ -226,7 +226,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
             <div className="snapshot-metric-card">
               <div className="snapshot-metric-label">
-                <span>Checks run</span>
+                <span>Checks so far</span>
                 <Layers size={12} />
               </div>
               <div className="snapshot-metric-val">{systemStatus?.history_count ?? '—'}</div>
@@ -234,29 +234,29 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
             <div className="snapshot-metric-card">
               <div className="snapshot-metric-label">
-                <span>Signals</span>
+                <span>Computer parts checked</span>
                 <HardDrive size={12} />
               </div>
               <div className="snapshot-metric-val" style={{ fontSize: '1rem' }}>
-                {systemStatus?.features_count ?? '—'} features
+                CPU, memory, disk
               </div>
             </div>
 
             <div className="snapshot-metric-card">
               <div className="snapshot-metric-label">
-                <span>Alert gate</span>
+                <span>Problem types</span>
                 <Terminal size={12} />
               </div>
-              <div className="snapshot-metric-val">{systemStatus ? `${Math.round(systemStatus.abnormality_threshold * 100)}%` : '—'}</div>
+              <div className="snapshot-metric-val">{systemStatus?.classes?.length ?? 4}</div>
             </div>
           </div>
 
           <div className="snapshot-subsystem-status">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
               <CheckCircle2 size={12} style={{ color: '#10b981' }} />
-              <span>{systemStatus?.ready ? 'Diagnostic engine online' : 'Waiting for local engine'}</span>
+              <span>{systemStatus?.ready ? 'Ready to check your computer' : 'Starting CURIO…'}</span>
             </div>
-            <span>{systemStatus?.classes?.length ?? 4} operating states</span>
+            <span>Results stay on this computer</span>
           </div>
         </div>
       </div>
@@ -264,7 +264,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       {/* Bottom Section: Diagnostic Core Architecture */}
       <div className="overview-core-section">
         <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', fontWeight: 700, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', letterSpacing: '0.5px' }}>
-          How the check works
+          How CURIO checks your computer
         </div>
 
         <div className="core-cards-grid">
@@ -272,9 +272,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             <div className="core-card-icon">
               <Clock size={14} />
             </div>
-            <div className="core-card-title">30-Second Micro-Capture</div>
+            <div className="core-card-title">1. Checks key parts</div>
             <div className="core-card-desc">
-              Captures 61 high-frequency telemetry samples across CPU, RAM, pagefile, and disk subsystems at 2 Hz.
+              For about 30 seconds, CURIO checks your processor, memory, storage, and running apps.
             </div>
           </div>
 
@@ -282,9 +282,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             <div className="core-card-icon">
               <Cpu size={14} />
             </div>
-            <div className="core-card-title">Calibrated condition model</div>
+            <div className="core-card-title">2. Looks for known problems</div>
             <div className="core-card-desc">
-              Evaluates 11 rolling feature windows against a calibrated Random Forest classifier with out-of-fold abnormality gating.
+              It compares the readings with examples of normal use and common performance problems.
             </div>
           </div>
 
@@ -292,9 +292,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             <div className="core-card-icon">
               <Search size={14} />
             </div>
-            <div className="core-card-title">Evidence Attribution</div>
+            <div className="core-card-title">3. Shows what stood out</div>
             <div className="core-card-desc">
-              Explains exactly which telemetry signals moved in abnormal directions relative to the learned Normal baseline.
+              The report points out which readings changed and how they compare with typical levels.
             </div>
           </div>
 
@@ -302,9 +302,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             <div className="core-card-icon">
               <GitBranch size={14} />
             </div>
-            <div className="core-card-title">Temporal Discovery</div>
+            <div className="core-card-title">4. Checks what changed first</div>
             <div className="core-card-desc">
-              Identifies chronological onset sequences and computes non-parametric trajectory alignment using Kendall's tau-b.
+              When there is enough data, CURIO shows when changes appeared and whether they followed a familiar pattern.
             </div>
           </div>
         </div>

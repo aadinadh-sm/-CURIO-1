@@ -42,6 +42,28 @@ EXPECTED_DURATION_SECONDS = 30.0
 EXPECTED_SAMPLE_INTERVAL = 0.5
 
 
+def _summarize_named_process(samples: List[Dict[str, Any]], name_key: str, value_key: str) -> Optional[Dict[str, Any]]:
+    """Summarize which named process most often led one resource during capture."""
+    counts: Dict[str, int] = {}
+    peaks: Dict[str, float] = {}
+    named_snapshots = 0
+    for sample in samples:
+        name = str(sample.get(name_key) or "").strip()
+        if not name:
+            continue
+        named_snapshots += 1
+        counts[name] = counts.get(name, 0) + 1
+        peaks[name] = max(peaks.get(name, 0.0), float(sample.get(value_key, 0.0) or 0.0))
+    if not counts:
+        return None
+    leader = max(counts, key=counts.get)
+    return {
+        "name": leader,
+        "share_of_named_snapshots": round(counts[leader] / named_snapshots, 3),
+        "peak_value": round(peaks[leader], 2),
+    }
+
+
 class DiagnosisCancelledError(Exception):
     """Raised when a diagnostic capture/session is cancelled by user request."""
     pass
@@ -376,6 +398,10 @@ class CurioDiagnosisPipeline:
             "abnormality": abnormality_summary,
             "evidence": evidence_res,
             "discovery": discovery_res,
+            "process_context": {
+                "cpu_leader": _summarize_named_process(collected_samples, "top_proc_cpu_name", "top_proc_cpu"),
+                "memory_leader": _summarize_named_process(collected_samples, "top_proc_rss_name", "top_proc_rss"),
+            },
             "performance": perf_summary,
             "metadata": {
                 "model_version": self.calibration_metadata.get("method", "calibrated_rf"),

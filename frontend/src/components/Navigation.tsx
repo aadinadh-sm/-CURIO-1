@@ -29,10 +29,9 @@ export const Navigation: React.FC<NavigationProps> = ({
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-        <div className="privacy-badge" title="No data leaves this device. Bound strictly to 127.0.0.1.">
+        <div className="privacy-badge" title="Your computer readings stay on this computer.">
           <span className="privacy-dot"></span>
-          <span>Local Only</span>
-          <span style={{ color: 'var(--text-muted)' }}>127.0.0.1</span>
+          <span>Private on this computer</span>
         </div>
 
         <div className="curio-nav-actions">
@@ -41,7 +40,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             onClick={() => onNavigate('home')}
           >
             <Activity size={14} />
-            <span>Diagnose</span>
+            <span>Check computer</span>
             <kbd>⌘D</kbd>
           </button>
 
@@ -50,7 +49,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             onClick={() => onNavigate('history')}
           >
             <Clock size={14} />
-            <span>History</span>
+            <span>Past checks</span>
             <kbd>⌘H</kbd>
           </button>
 
@@ -58,10 +57,10 @@ export const Navigation: React.FC<NavigationProps> = ({
             className="nav-link"
             onClick={onOpenReplay}
             style={{ color: '#e4e4e7' }}
-            title="Instant replay with verified physical telemetry"
+            title="Open an example result"
           >
             <RotateCcw size={14} />
-            <span>Replay Mode</span>
+            <span>Try an example</span>
           </button>
 
           <button
@@ -70,7 +69,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             style={{ border: '1px solid var(--border-subtle)' }}
           >
             <Terminal size={14} />
-            <span>{technicalMode ? 'Technical: ON' : 'Technical: OFF'}</span>
+            <span>{technicalMode ? 'Hide technical details' : 'Technical details'}</span>
           </button>
         </div>
       </div>

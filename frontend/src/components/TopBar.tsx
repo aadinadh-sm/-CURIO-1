@@ -21,15 +21,15 @@ export const TopBar: React.FC<TopBarProps> = ({
   const getSectionTitle = () => {
     switch (currentView) {
       case 'home':
-        return 'Overview';
+        return 'Home';
       case 'diagnosing':
-        return 'Diagnostic Workspace';
+        return 'Computer check';
       case 'result':
-        return 'Diagnosis Report';
+        return 'Check result';
       case 'history':
-        return 'Incident History';
+        return 'Past checks';
       default:
-        return 'Overview';
+        return 'Home';
     }
   };
 
@@ -39,9 +39,9 @@ export const TopBar: React.FC<TopBarProps> = ({
         <span
           onClick={() => onNavigate('home')}
           style={{ cursor: 'pointer', transition: 'color 0.12s ease' }}
-          title="Return to Overview"
+          title="Go to home"
         >
-          Workspace
+          Home
         </span>
         <span>/</span>
         <span className="current">{getSectionTitle()}</span>
@@ -50,20 +50,20 @@ export const TopBar: React.FC<TopBarProps> = ({
       <div className="topbar-actions">
         <div className="engine-status-pill">
           <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981' }}></span>
-          <span>Engine: Ready (2 Hz)</span>
+          <span>CURIO ready</span>
         </div>
 
         {currentView !== 'diagnosing' && (
           <button className="btn-primary" onClick={onStartLiveDiagnosis} style={{ fontSize: '0.78rem', padding: '0.35rem 0.75rem' }}>
             <Play size={12} fill="currentColor" />
-            <span>Diagnose</span>
+            <span>Check computer</span>
             <kbd style={{ background: '#e4e4e7', color: '#18181b', border: '1px solid #d4d4d8' }}>⌘D</kbd>
           </button>
         )}
 
         <button className="btn-secondary" onClick={onOpenReplay} style={{ fontSize: '0.78rem', padding: '0.35rem 0.75rem' }}>
           <RotateCcw size={12} />
-          <span>Replay</span>
+          <span>Example</span>
         </button>
 
         <button
@@ -78,7 +78,7 @@ export const TopBar: React.FC<TopBarProps> = ({
           }}
         >
           <Terminal size={12} />
-          <span>Technical: {technicalMode ? 'ON' : 'OFF'}</span>
+          <span>{technicalMode ? 'Hide technical details' : 'Technical details'}</span>
         </button>
       </div>
     </header>

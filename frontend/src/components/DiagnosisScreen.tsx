@@ -38,12 +38,12 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
         }
 
         if (data.state === 'cancelled') {
-          setCancelledMessage('Diagnosis Cancelled. System state restored.');
+          setCancelledMessage('The check was stopped. CURIO did not change your system settings.');
           return;
         }
 
         if (data.state === 'error') {
-          const err = data.error || 'Diagnostic capture encountered an unexpected error.';
+          const err = 'CURIO could not finish the check. Try again. If this keeps happening, restart CURIO.';
           setErrorMessage(err);
           onError(err);
           return;
@@ -53,8 +53,9 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
         timerId = setTimeout(poll, 400);
       } catch (err: any) {
         if (!isMounted) return;
-        setErrorMessage(err.message || 'Lost connection to local CURIO backend.');
-        onError(err.message || 'Backend connection error');
+        const friendlyError = 'CURIO lost its connection while checking your computer. Restart CURIO and try again.';
+        setErrorMessage(friendlyError);
+        onError(friendlyError);
       }
     };
 
@@ -70,9 +71,9 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
     setIsCancelling(true);
     try {
       await cancelDiagnosis(diagnosisId);
-      setCancelledMessage('Diagnosis Cancelled. System state restored.');
+      setCancelledMessage('The check was stopped. CURIO did not change your system settings.');
     } catch {
-      setCancelledMessage('Diagnosis Cancelled. System state restored.');
+      setCancelledMessage('The check was stopped. CURIO did not change your system settings.');
     } finally {
       setIsCancelling(false);
     }
@@ -85,13 +86,13 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
           <XCircle size={28} />
         </div>
         <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-          Diagnosis Cancelled
+          Check stopped
         </h2>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '1.75rem', fontSize: '0.9rem' }}>
           {cancelledMessage}
         </p>
         <button className="btn-secondary" onClick={onCancel}>
-          Return Home
+          Back to CURIO
         </button>
       </div>
     );
@@ -104,13 +105,13 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
           <AlertCircle size={28} />
         </div>
         <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.5rem', color: '#fda4af', letterSpacing: '-0.02em' }}>
-          Diagnostic Error
+          Check could not finish
         </h2>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '1.75rem', fontSize: '0.9rem' }}>
           {errorMessage}
         </p>
         <button className="btn-secondary" onClick={onCancel}>
-          Back to Home
+          Back to CURIO
         </button>
       </div>
     );
@@ -121,6 +122,11 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
   const progressPercent = Math.round((statusData?.progress || 0) * 100);
   const elapsed = statusData?.elapsed_seconds || 0.0;
   const isAnalyzing = statusData?.state === 'analyzing';
+  const stageLabel = isAnalyzing
+    ? 'Reviewing the readings'
+    : samples === 0
+      ? 'Getting ready to check your computer'
+      : `Checking your computer (${samples} of ${total} readings)`;
 
   return (
     <div className="diagnosis-running-box">
@@ -142,15 +148,15 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
         }}
       >
         <Activity size={12} className="animate-pulse" />
-        <span>DIAGNOSIS IN PROGRESS</span>
+        <span>CHECK IN PROGRESS</span>
       </div>
 
       <h2 style={{ fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '0.4rem', color: 'var(--text-primary)' }}>
-        CURIO is analyzing your computer
+        Checking your computer
       </h2>
 
       <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '1.5rem' }}>
-        Non-intrusively capturing high-frequency operating telemetry across core subsystems.
+        CURIO is checking your processor, memory, storage, and running apps. This usually takes about 30 seconds.
       </p>
 
       {/* Subsystem checklist */}
@@ -161,7 +167,7 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
             <span>CPU</span>
           </div>
           <span style={{ fontSize: '0.72rem', color: samples >= 5 ? '#34d399' : 'var(--text-muted)' }}>
-            {samples >= 5 ? '✓ Online' : '● Waiting'}
+            {samples >= 5 ? '✓ Checked' : '● Checking soon'}
           </span>
         </div>
 
@@ -171,7 +177,7 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
             <span>Memory</span>
           </div>
           <span style={{ fontSize: '0.72rem', color: samples >= 15 ? '#34d399' : 'var(--text-muted)' }}>
-            {samples >= 15 ? '✓ Online' : '● Waiting'}
+            {samples >= 15 ? '✓ Checked' : '● Checking soon'}
           </span>
         </div>
 
@@ -181,7 +187,7 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
             <span>Disk I/O</span>
           </div>
           <span style={{ fontSize: '0.72rem', color: samples >= 25 ? '#34d399' : 'var(--text-muted)' }}>
-            {samples >= 25 ? '✓ Online' : '● Waiting'}
+            {samples >= 25 ? '✓ Checked' : '● Checking soon'}
           </span>
         </div>
 
@@ -191,7 +197,7 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
             <span>Processes</span>
           </div>
           <span style={{ fontSize: '0.72rem', color: samples >= 35 ? '#34d399' : 'var(--text-muted)' }}>
-            {samples >= 35 ? '✓ Online' : '● Waiting'}
+            {samples >= 35 ? '✓ Checked' : '● Checking soon'}
           </span>
         </div>
       </div>
@@ -202,7 +208,7 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
       </div>
 
       <div className="progress-stats-row">
-        <span>{isAnalyzing ? 'Stage: Analysis' : `Collecting: ${samples} / ${total} samples`}</span>
+        <span>{stageLabel}</span>
         <span>{elapsed.toFixed(1)}s / 30.0s ({progressPercent}%)</span>
       </div>
 
@@ -214,18 +220,18 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
           padding: '0.85rem 1rem',
           marginBottom: '1.75rem',
           textAlign: 'left',
-          fontFamily: 'var(--font-mono)',
+          fontFamily: 'inherit',
           fontSize: '0.8rem',
           color: 'var(--text-secondary)',
         }}
       >
         <div style={{ color: '#38bdf8', fontWeight: 600, marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           <Terminal size={13} />
-          <span>{statusData?.stage || 'Initializing telemetry collector...'}</span>
+          <span>{stageLabel}</span>
         </div>
         {isAnalyzing && (
           <div style={{ color: 'var(--text-muted)', fontSize: '0.74rem' }}>
-            Running 12-feature windowing, Random Forest evaluation, evidence attribution, and trajectory progression discovery.
+            CURIO is comparing the readings and preparing your report.
           </div>
         )}
       </div>
@@ -237,7 +243,7 @@ export const DiagnosisScreen: React.FC<DiagnosisScreenProps> = ({
           disabled={isCancelling}
         >
           <Square size={13} fill="currentColor" />
-          <span>{isCancelling ? 'Restoring System State...' : 'Cancel Diagnosis'}</span>
+          <span>{isCancelling ? 'Stopping check…' : 'Stop check'}</span>
           <kbd style={{ background: 'rgba(0, 0, 0, 0.4)', color: '#fda4af', border: '1px solid rgba(244, 63, 94, 0.3)' }}>Esc</kbd>
         </button>
       </div>

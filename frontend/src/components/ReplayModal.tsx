@@ -17,29 +17,29 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({
   const conditions = [
     {
       id: 'normal',
-      name: 'Normal Operation',
-      description: 'Replay pre-collected physical baseline telemetry within learned operating bounds.',
+      name: 'Normal computer use',
+      description: 'See what a result looks like when CURIO does not find a problem.',
       icon: Activity,
       color: '#34d399',
     },
     {
       id: 'cpu_pressure',
-      name: 'CPU Pressure',
-      description: 'Replay multi-core physical stress telemetry exhibiting sustained high utilization.',
+      name: 'CPU under heavy load',
+      description: 'See an example of a processor that is working very hard.',
       icon: Cpu,
       color: '#38bdf8',
     },
     {
       id: 'memory_pressure',
-      name: 'Memory Pressure',
-      description: 'Replay high-RSS memory consumption telemetry with reduced available RAM.',
+      name: 'Memory running low',
+      description: 'See an example of a computer running short on memory.',
       icon: Layers,
       color: '#fbbf24',
     },
     {
       id: 'disk_io_pressure',
-      name: 'Disk I/O Pressure',
-      description: 'Replay high sequential throughput & IOPS telemetry exhibiting storage pressure.',
+      name: 'Disk under heavy load',
+      description: 'See an example of storage activity slowing things down.',
       icon: HardDrive,
       color: '#f87171',
     },
@@ -68,10 +68,10 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({
                 marginBottom: '0.45rem',
               }}
             >
-              <span>REPLAY / DEMO MODE (DEVELOPMENT TELEMETRY)</span>
+              <span>EXAMPLE RESULTS</span>
             </div>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-              Instant Telemetry Replay
+              Try an example result
             </h2>
           </div>
           <button onClick={onClose} style={{ color: 'var(--text-muted)', cursor: 'pointer', padding: '0.25rem' }}>
@@ -80,7 +80,7 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({
         </div>
 
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '1.25rem', lineHeight: 1.5 }}>
-          Select a verified physical telemetry session to evaluate the full end-to-end diagnosis, evidence, and discovery pipeline instantaneously without waiting 30 seconds.
+          These saved examples show the kinds of results CURIO can find. Choose one to open its report right away—no wait required.
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', marginBottom: '1.75rem' }}>
@@ -133,7 +133,7 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({
                   <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{c.description}</div>
                 </div>
                 <div style={{ color: 'var(--text-secondary)', fontWeight: 500, fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                  <span>Run Replay</span>
+                  <span>View example</span>
                   <ArrowRight size={13} />
                 </div>
               </div>
@@ -143,7 +143,7 @@ export const ReplayModal: React.FC<ReplayModalProps> = ({
 
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
           <button className="btn-secondary" onClick={onClose}>
-            Cancel
+            Close
           </button>
         </div>
       </div>

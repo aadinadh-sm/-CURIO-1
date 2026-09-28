@@ -96,6 +96,12 @@ export interface PerformanceMetrics {
   total_analysis_ms: number;
 }
 
+export interface ProcessLeaderSummary {
+  name: string;
+  share_of_named_snapshots: number;
+  peak_value: number;
+}
+
 export interface DiagnosisResult {
   session_id: string;
   capture_started_at: string;
@@ -106,6 +112,10 @@ export interface DiagnosisResult {
   abnormality: AbnormalitySummary;
   evidence: EvidenceSummary;
   discovery: DiscoverySummary;
+  process_context?: {
+    cpu_leader: ProcessLeaderSummary | null;
+    memory_leader: ProcessLeaderSummary | null;
+  };
   performance: PerformanceMetrics;
   metadata: {
     model_version: string;

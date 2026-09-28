@@ -54,8 +54,8 @@ export const App: React.FC = () => {
       const resp = await startDiagnosis('live');
       setActiveDiagnosisId(resp.diagnosis_id);
       setCurrentView('diagnosing');
-    } catch (err: any) {
-      setErrorBanner(`Failed to start diagnostic capture: ${err.message}`);
+    } catch {
+      setErrorBanner('CURIO could not start the check. Please try again.');
     }
   };
 
@@ -65,8 +65,8 @@ export const App: React.FC = () => {
       const resp = await startDiagnosis('replay', condition);
       setActiveDiagnosisId(resp.diagnosis_id);
       setCurrentView('diagnosing');
-    } catch (err: any) {
-      setErrorBanner(`Failed to start replay diagnosis: ${err.message}`);
+    } catch {
+      setErrorBanner('CURIO could not open that example. Please try again.');
     }
   };
 
@@ -76,8 +76,8 @@ export const App: React.FC = () => {
       const result = await diagnoseDataset(csvText, filename);
       setActiveResult(result);
       setCurrentView('result');
-    } catch (err: any) {
-      setErrorBanner(`Dataset diagnosis failed: ${err.message}`);
+    } catch {
+      setErrorBanner('CURIO could not read this CSV file. Check that it is a CURIO capture and try again.');
     }
   };
 
@@ -139,7 +139,7 @@ export const App: React.FC = () => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 fontSize: '0.82rem',
-                fontFamily: 'var(--font-mono)',
+                fontFamily: 'inherit',
               }}
             >
               <span>{errorBanner}</span>

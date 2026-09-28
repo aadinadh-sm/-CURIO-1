@@ -30,13 +30,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="sidebar-brand-copy">
             <div className="sidebar-brand-title">CURIO</div>
             <div className="sidebar-brand-subtitle">
-              SYSTEM INTELLIGENCE
+              COMPUTER HEALTH CHECK
             </div>
           </div>
         </div>
 
         {/* Primary Navigation */}
-        <div className="sidebar-section-title">Navigation</div>
+        <div className="sidebar-section-title">MENU</div>
         <div className="sidebar-nav-group">
           <button
             className={`sidebar-nav-item ${currentView === 'home' ? 'active' : ''}`}
@@ -44,7 +44,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <LayoutDashboard size={15} />
-              <span>Overview</span>
+              <span>Home</span>
             </div>
           </button>
 
@@ -57,7 +57,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Play size={15} />
-              <span>Diagnose</span>
+              <span>Check computer</span>
             </div>
             <kbd>⌘D</kbd>
           </button>
@@ -75,14 +75,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* Subsystems (Monitoring Context) */}
-        <div className="sidebar-section-title">System</div>
+        <div className="sidebar-section-title">WHAT CURIO CHECKS</div>
         <div className="sidebar-nav-group">
           <div className="sidebar-subsystem-item">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Cpu size={14} />
               <span>CPU</span>
             </div>
-            <span style={{ fontSize: '0.7rem', color: '#34d399' }}>● Active</span>
+            <span style={{ fontSize: '0.7rem', color: '#34d399' }}>Included</span>
           </div>
 
           <div className="sidebar-subsystem-item">
@@ -90,7 +90,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <Layers size={14} />
               <span>Memory</span>
             </div>
-            <span style={{ fontSize: '0.7rem', color: '#34d399' }}>● Active</span>
+            <span style={{ fontSize: '0.7rem', color: '#34d399' }}>Included</span>
           </div>
 
           <div className="sidebar-subsystem-item">
@@ -98,7 +98,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <HardDrive size={14} />
               <span>Disk</span>
             </div>
-            <span style={{ fontSize: '0.7rem', color: '#34d399' }}>● Active</span>
+            <span style={{ fontSize: '0.7rem', color: '#34d399' }}>Included</span>
           </div>
 
           <div className="sidebar-subsystem-item">
@@ -106,12 +106,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <Terminal size={14} />
               <span>Processes</span>
             </div>
-            <span style={{ fontSize: '0.7rem', color: '#34d399' }}>● Active</span>
+            <span style={{ fontSize: '0.7rem', color: '#34d399' }}>Included</span>
           </div>
         </div>
 
         {/* Technical Mode Toggle */}
-        <div className="sidebar-section-title">Console</div>
+        <div className="sidebar-section-title">MORE</div>
         <div className="sidebar-nav-group">
           <button
             className={`sidebar-nav-item ${technicalMode ? 'active' : ''}`}
@@ -119,7 +119,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Code2 size={15} />
-              <span>Technical Mode</span>
+              <span>Technical details</span>
             </div>
             <span
               style={{
@@ -142,10 +142,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <RotateCcw size={15} />
-              <span>Replay Demo</span>
+              <span>Try an example</span>
             </div>
             <span style={{ fontSize: '0.62rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
-              FIXTURE
+              EXAMPLE
             </span>
           </button>
         </div>
@@ -153,11 +153,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Sidebar Footer */}
       <div className="sidebar-footer">
-        <div className="sidebar-local-status" title="Bound strictly to 127.0.0.1. Zero outbound telemetry.">
+        <div className="sidebar-local-status" title="Your computer readings stay on this computer.">
           <div className="status-dot-emerald"></div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.2 }}>Local Only</span>
-            <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)', lineHeight: 1.2 }}>Telemetry stays here</span>
+            <span style={{ fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.2 }}>Private on this computer</span>
+            <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)', lineHeight: 1.2 }}>Readings and app names stay here</span>
           </div>
         </div>
       </div>
