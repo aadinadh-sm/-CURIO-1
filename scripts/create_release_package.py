@@ -27,12 +27,14 @@ INCLUDE_ITEMS = [
     "tests",
     "docs",
     "reports",
+    os.path.join("data", "physical_raw"),
     os.path.join("data", "models", "physical_deployment"),
     os.path.join("data", "physical_metadata"),
     os.path.join("frontend", "src"),
     os.path.join("frontend", "public"),
     os.path.join("frontend", "dist"),
     os.path.join("frontend", "index.html"),
+    os.path.join("frontend", "app"),
     os.path.join("frontend", "package.json"),
     os.path.join("frontend", "tsconfig.json"),
     os.path.join("frontend", "tsconfig.app.json"),
@@ -40,6 +42,8 @@ INCLUDE_ITEMS = [
     os.path.join("frontend", "vite.config.ts"),
     "README.md",
     "requirements.txt",
+    "START-CURIO.bat",
+    "START-CURIO-HERE.txt",
     ".gitignore",
     "CURIO_VERSION",
 ]
@@ -49,12 +53,16 @@ EXCLUDE_SUBSTRINGS = [
     "__pycache__",
     ".pytest_cache",
     "node_modules",
+    ".curio-venv",
     ".vite",
     ".git",
     ".pyc",
     ".pyo",
     ".log",
     ".tmp",
+    # The downloadable bundle is copied into the site after this archive is built.
+    "frontend/public/downloads/",
+    "frontend/dist/downloads/",
 ]
 
 

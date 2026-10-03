@@ -1,0 +1,46 @@
+name: Build and publish CURIO preview
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Build product site and local app
+        run: |
+          npm --prefix frontend ci
+          npm --prefix frontend run build
+
+      - name: Package Windows preview
+        run: |
+          python scripts/create_release_package.py
+          cp dist/curio_release.zip dist/curio-windows-preview.zip
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/curio-windows-preview.zip \
+            --title "CURIO $GITHUB_REF_NAME" \
+            --generate-notes

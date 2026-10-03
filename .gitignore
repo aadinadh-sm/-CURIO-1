@@ -38,6 +38,10 @@ Desktop.ini
 
 # Temporary release and export artifacts
 dist/tmp/
+dist/curio_release.zip
+dist/curio-windows-preview.zip
+dist/SHA256SUMS.txt
+frontend/public/downloads/
 
 # Locally generated diagnostic history (sample reports already tracked remain available)
 data/diagnosis_history/*.json

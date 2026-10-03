@@ -200,3 +200,25 @@ Validated on physical computer Machine A across 22 independent capture sessions 
 2. **Fixed 30-Second Window**: Telemetry capture is constrained to a 30-second duration at 2 Hz (61 discrete samples). Sub-second transient spikes (< 500 ms) fall below the Nyquist-Shannon sampling threshold.
 3. **Non-Causal Statistical Association**: CURIO identifies empirical statistical correlations and temporal sequences; it does not claim to establish definitive hardware or kernel root causality.
 4. **Local-Only Boundary**: CURIO operates strictly on `127.0.0.1`. It does not provide remote fleet management or cloud monitoring.
+
+---
+
+## Product Website and Windows Preview
+
+The repository also contains the CURIO product website in `frontend/`. It explains the local diagnostic workflow and links to the Windows preview bundle. The hosted site is a product/download page; computer diagnosis still runs on the user's own computer.
+
+### Run the Windows preview
+
+1. Download `curio-windows-preview.zip` from the latest GitHub Release and extract it.
+2. Double-click `START-CURIO.bat`.
+3. The first launch creates a private Python environment and installs dependencies. It needs Python 3.12 or 3.13 and an internet connection once. Administrator access is not required.
+
+This is a setup bundle, not a signed Windows installer.
+
+### Deploy the product website with Vercel
+
+Import this repository and set the Vercel **Root Directory** to `frontend`. Vercel will build the Vite product site and publish `dist/`. The diagnostic interface is included in the local Windows bundle; it needs CURIO's on-device API and is not a hosted computer-monitoring service.
+
+### Publish a Windows preview release
+
+Push a version tag such as `v1.0.0`. The GitHub Actions workflow at `.github/workflows/release.yml` builds the product pages and packages the local app, model, example telemetry, and Windows launcher into `curio-windows-preview.zip`, then attaches it to a GitHub Release. The website download link always points to the latest release asset.

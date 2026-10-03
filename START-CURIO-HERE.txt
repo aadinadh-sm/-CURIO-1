@@ -1,0 +1,19 @@
+CURIO FOR WINDOWS — PREVIEW SETUP BUNDLE
+
+GET STARTED
+1. Extract the ZIP to a folder you can find again.
+2. Double-click START-CURIO.bat.
+3. The first run sets up CURIO and opens it in your browser.
+4. Keep the black setup window open while using CURIO. Close it to stop CURIO.
+
+WHAT YOU NEED
+- Windows 10 or 11
+- Python 3.12 or 3.13 installed
+- An internet connection for the first setup only
+- No administrator access
+
+CURIO runs locally at 127.0.0.1. It does not send your computer readings to a server.
+The website and this bundle are a preview distribution, not a signed Windows installer.
+
+If setup fails, confirm Python is installed, reconnect to the internet, and run
+START-CURIO.bat again. The setup window shows the error details.
