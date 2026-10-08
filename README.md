@@ -212,6 +212,7 @@ The repository also contains the CURIO product website in `frontend/`. It explai
 1. Download `curio-windows-preview.zip` from the latest GitHub Release and extract it.
 2. Double-click `START-CURIO.bat`.
 3. The first launch creates a private Python environment and installs dependencies. It needs Python 3.12 or 3.13 and an internet connection once. Administrator access is not required.
+4. CURIO opens the diagnostic app at `http://127.0.0.1:8000/app/`. The product page at `/` is optional; it is not a second app to launch. The local backend serves the diagnostic interface and its API together.
 
 This is a setup bundle, not a signed Windows installer.
 
@@ -221,4 +222,4 @@ Import this repository and set the Vercel **Root Directory** to `frontend`. Verc
 
 ### Publish a Windows preview release
 
-Push a version tag such as `v1.0.0`. The GitHub Actions workflow at `.github/workflows/release.yml` builds the product pages and packages the local app, model, example telemetry, and Windows launcher into `curio-windows-preview.zip`, then attaches it to a GitHub Release. The website download link always points to the latest release asset.
+Push a version tag such as `v1.0.1`. The GitHub Actions workflow at `.github/workflows/release.yml` builds the product pages and packages the local app, model, example telemetry, and Windows launcher into `curio-windows-preview.zip`, then attaches it to a GitHub Release. The website download link always points to the latest release asset.

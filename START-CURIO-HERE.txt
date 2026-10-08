@@ -3,8 +3,12 @@ CURIO FOR WINDOWS — PREVIEW SETUP BUNDLE
 GET STARTED
 1. Extract the ZIP to a folder you can find again.
 2. Double-click START-CURIO.bat.
-3. The first run sets up CURIO and opens it in your browser.
+3. The first run sets up CURIO and opens the diagnostic app in your browser.
 4. Keep the black setup window open while using CURIO. Close it to stop CURIO.
+
+The downloaded software opens one local address: http://127.0.0.1:8000/app/.
+The product information page is hosted separately; it is not another local app
+that needs to be started. CURIO's local backend also serves the app's API.
 
 WHAT YOU NEED
 - Windows 10 or 11

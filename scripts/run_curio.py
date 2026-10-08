@@ -144,17 +144,26 @@ def start_services(
     print("\n==================================================")
     print("CURIO READY")
     print("==================================================")
-    print(f"\nBackend:\nhttp://{host}:{backend_port}")
+    print(f"\nLocal product page (optional):\nhttp://{host}:{backend_port}/")
+    print(f"\nCURIO diagnostic app:\nhttp://{host}:{backend_port}/app/")
+    print(f"\nLocal API:\nhttp://{host}:{backend_port}/api")
     if frontend_proc and frontend_proc.poll() is None:
-        print(f"\nFrontend:\nhttp://{host}:{frontend_port}")
+        print(f"\nVite app server:\nhttp://{host}:{frontend_port}/app/")
     else:
-        print(f"\nFrontend (Static Build):\nhttp://{host}:{backend_port}")
+        print("The app and API are served together by the local backend.")
     print("==================================================")
     print("Local-only mode active. No data leaves this device.")
     print("Press Ctrl+C to terminate all services.\n")
 
     if open_browser:
-        target_url = f"http://{host}:{frontend_port}" if (frontend_proc and frontend_proc.poll() is None) else f"http://{host}:{backend_port}"
+        # The root route is the product/marketing page. The actual diagnostic
+        # interface is a separate Vite entry mounted at /app/ in both dev and
+        # release builds.
+        target_url = (
+            f"http://{host}:{frontend_port}/app/"
+            if (frontend_proc and frontend_proc.poll() is None)
+            else f"http://{host}:{backend_port}/app/"
+        )
         webbrowser.open(target_url)
 
     try:

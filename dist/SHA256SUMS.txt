@@ -1,1 +1,1 @@
-422e7de5f42c8af79c2249603b147f1c980407db6a237f743d7a84a54cc0366f  curio_release.zip
+d78ce1be8d4b9598186ffc9fce9adbfc5a19dca97857a1991c85a76930be94be  curio_release.zip
