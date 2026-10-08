@@ -38,7 +38,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
     cpu_core_imbalance: 'How evenly processor work is shared',
     ram_used_pct: 'Memory in use',
     ram_available_ratio: 'Memory still available',
-    swap_used_pct: 'Disk space used as extra memory',
+    swap_used_pct: 'Windows pagefile use (virtual memory)',
     disk_io_rate_norm: 'Data read or written',
     disk_iops_norm: 'Disk activity rate',
     process_count_delta: 'Change in running apps',
@@ -274,6 +274,11 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
                 <p className="evidence-statement-text">
                   {`${signalName(item.feature_name)} was ${item.direction === 'elevated' || item.direction === 'increased' ? 'higher than' : item.direction === 'reduced' || item.direction === 'decreased' ? 'lower than' : 'close to'} its usual level during this check.`}
                 </p>
+                {item.feature_name === 'swap_used_pct' && (
+                  <p className="evidence-statement-text" style={{ marginTop: '-0.25rem', color: 'var(--text-muted)' }}>
+                    The pagefile is disk space Windows can use as extra memory. This comparison is one clue from CURIO’s examples; it does not prove the cause by itself.
+                  </p>
+                )}
               </div>
             ))}
           </div>

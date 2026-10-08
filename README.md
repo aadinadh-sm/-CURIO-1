@@ -222,4 +222,4 @@ Import this repository and set the Vercel **Root Directory** to `frontend`. Verc
 
 ### Publish a Windows preview release
 
-Push a version tag such as `v1.0.1`. The GitHub Actions workflow at `.github/workflows/release.yml` builds the product pages and packages the local app, model, example telemetry, and Windows launcher into `curio-windows-preview.zip`, then attaches it to a GitHub Release. The website download link always points to the latest release asset.
+Push a version tag such as `v1.0.2`. The GitHub Actions workflow at `.github/workflows/release.yml` builds the product pages and packages the local app, model, example telemetry, and Windows launcher into `curio-windows-preview.zip`, then attaches it to a GitHub Release. The website download link always points to the latest release asset.

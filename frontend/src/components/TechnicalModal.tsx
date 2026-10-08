@@ -27,7 +27,7 @@ export const TechnicalModal: React.FC<TechnicalModalProps> = ({ result, onClose 
               <span>Technical Diagnostics & Telemetry Inspection</span>
             </h2>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginTop: '0.15rem' }}>
-              Session: {result.session_id} | Model: {result.metadata.model_version}
+              Session: {result.session_id} | Model: Random Forest | Calibration: {result.metadata.model_version.includes('sigmoid') ? 'sigmoid' : result.metadata.model_version}
             </div>
           </div>
           <button
